@@ -44,3 +44,83 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+todo:
+
+Build board
+
+- Sudoku board data object?
+- Flat object w/ 81 keys
+
+- markup (table vs grid)
+- Grid of numeric text inputs
+
+- styles
+- CSS Grid for board
+- Text styles
+
+- input events
+- Click, set value
+- Arrow/tab navigation
+
+Build other controls
+
+- Generate
+- Validate
+- Solve
+
+API
+
+- RTK
+- Get board
+- Move endpoints to env file
+
+Unit tests
+
+If time:
+
+- Dark mode
+- Save progress to local storage
+- JSDocs
+- Feature flags?
+
+```javscript
+checkSet(set: string[]) {
+    return set.sort() === [1,2,3,4,5,6,7,8,9];
+    // or JSON.stringify(set) === "[1,2,3,4,5,6,7,8,9]";
+}
+
+Solver(board) {
+    rows = [ "A", "B", "C", "D", "E", "F", "G", "H", "I" ];
+    cols = [ "1", "2", "3", "4", "5", "6", "7", "8", "9" ];
+    valid = true;
+
+    // rows (check all A#, B#, C#,...)
+    var set = [];
+    foreach (row) {
+        foreach (col) {
+            set.push(board[row + col])
+        }
+
+        valid = valid && checkSet(set);
+    }
+    // columns (check all d1, d2, d3,...)
+    set = [];
+    foreach (col) {
+        foreach (row) {
+            set.push(board[row + col])
+        }
+
+        valid = valid && checkSet(set);
+    }
+    set = [];
+    // blocks (check all {A,B,C}{1,2,3},...)
+    foreach (col) {
+        foreach (row) {
+            set.push(board[row + col])
+        }
+
+        valid = valid && checkSet(set);
+    }
+}
+```
