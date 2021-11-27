@@ -47,18 +47,6 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 todo:
 
-Build board
-
-- Sudoku board data object?
-- Flat object w/ 81 keys
-
-- markup (table vs grid)
-- Grid of numeric text inputs
-
-- styles
-- CSS Grid for board
-- Text styles
-
 - input events
 - Click, set value
 - Arrow/tab navigation
@@ -83,44 +71,6 @@ If time:
 - Save progress to local storage
 - JSDocs
 - Feature flags?
-
-```javscript
-checkSet(set: string[]) {
-    return set.sort() === [1,2,3,4,5,6,7,8,9];
-    // or JSON.stringify(set) === "[1,2,3,4,5,6,7,8,9]";
-}
-
-Solver(board) {
-    rows = [ "A", "B", "C", "D", "E", "F", "G", "H", "I" ];
-    cols = [ "1", "2", "3", "4", "5", "6", "7", "8", "9" ];
-    valid = true;
-
-    // rows (check all A#, B#, C#,...)
-    var set = [];
-    foreach (row) {
-        foreach (col) {
-            set.push(board[row + col])
-        }
-
-        valid = valid && checkSet(set);
-    }
-    // columns (check all d1, d2, d3,...)
-    set = [];
-    foreach (col) {
-        foreach (row) {
-            set.push(board[row + col])
-        }
-
-        valid = valid && checkSet(set);
-    }
-    set = [];
-    // blocks (check all {A,B,C}{1,2,3},...)
-    foreach (col) {
-        foreach (row) {
-            set.push(board[row + col])
-        }
-
-        valid = valid && checkSet(set);
-    }
-}
-```
+- Undo moves (push state onto stack)
+- Check if valid after each move
+- show invalid row/column/block

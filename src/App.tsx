@@ -21,6 +21,10 @@ function App() {
     });
   }, []);
 
+  const updateBoard = (updatedBoard: Board) => {
+    setGameBoard(updatedBoard);
+  };
+
   const onCheckSolved = (gameBoard: Board) => (e: React.MouseEvent) => {
     e.preventDefault();
     setPuzzleSolved(checkSolution(gameBoard));
@@ -32,9 +36,9 @@ function App() {
         <h1>Sudoku</h1>
       </header>
       <ToastContainer position='top-center' autoClose={5000} closeOnClick pauseOnHover />
-      <SudokuBoard boardValues={gameBoard}></SudokuBoard>
+      <SudokuBoard boardValues={gameBoard} updateBoard={updateBoard}></SudokuBoard>
       <button onClick={onCheckSolved(gameBoard)}>Check solution</button>
-      <h3>Solved? {puzzleSolved ? 'Oh yeah' : 'Nope'}</h3>
+      <h3>Solved? {puzzleSolved ? 'Yep' : 'Nope'}</h3>
     </div>
   );
 }

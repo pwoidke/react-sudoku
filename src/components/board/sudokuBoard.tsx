@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import classnames from 'classnames';
 
 import { Board } from '../../types/Board';
@@ -7,10 +5,18 @@ import { Board } from '../../types/Board';
 import styles from './sudokuBoard.module.scss';
 
 export interface Props {
-  boardValues?: Board;
+  boardValues: Board;
+  updateBoard: (board: Board) => void;
 }
 
-export default function SudokuBoard({ boardValues }: Props) {
+export default function SudokuBoard({ boardValues, updateBoard }: Props) {
+  const updateBoardValues = (position: string, val: string) => {
+    console.log(`${position} ${val}`);
+    boardValues[position] = val;
+
+    updateBoard(boardValues);
+  };
+
   const gridSquare = (value: string | null, square: string) => {
     return (
       <div
@@ -38,7 +44,13 @@ export default function SudokuBoard({ boardValues }: Props) {
         {value ? (
           <span key={square}>{value}</span>
         ) : (
-          <input type='number' min='1' max='9' key={square}></input>
+          <input
+            type='number'
+            min='1'
+            max='9'
+            key={square}
+            onChange={(e) => updateBoardValues(square, e.target.value)}
+          ></input>
         )}
       </div>
     );
