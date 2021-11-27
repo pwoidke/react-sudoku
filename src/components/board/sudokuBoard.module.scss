@@ -1,0 +1,56 @@
+.grid {
+  width: 500px;
+  height: 500px;
+  margin: 10px auto;
+  box-sizing: border-box;
+  display: block;
+}
+
+.cell {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  border-collapse: collapse;
+  box-sizing: border-box;
+  font-size: 3em;
+  text-align: center;
+  width: 11.11%;
+  height: 11.201%;
+  border: 1px solid #444;
+
+  p,
+  input {
+    display: inline;
+    width: 100%;
+  }
+
+  input {
+    box-sizing: border-box;
+    font-size: 1em;
+    text-align: center;
+    border: none;
+    border-bottom: 1px solid #444;
+    height: 91%;
+  }
+}
+
+.row3,
+.row6 {
+  border-bottom: 2px solid #444;
+}
+.col3,
+.col6 {
+  border-right: 2px solid #444;
+}
+.col1 {
+  border-left: 3px solid #444;
+}
+.col9 {
+  border-right: 3px solid #444;
+}
+.row1 {
+  border-top: 3px solid #444;
+}
+.row9 {
+  border-bottom: 3px solid #444;
+}

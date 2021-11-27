@@ -8,16 +8,13 @@ import { ToastContainer } from 'react-toastify';
 import './App.css';
 
 function App() {
-  // Get data from API endpoint
-  const board = emptyBoard();
-  // Object w/ 81 keys corresponding to [row A-I][col 1-9]: value (string) [1-9]
-
   const [gameBoard, setGameBoard] = useState(emptyBoard());
 
   useEffect(() => {
+    // Get data from API endpoint
     getNewGame('easy').then((gameData) => {
       if (gameData) {
-        setGameBoard({ ...emptyBoard, ...gameData.puzzle });
+        setGameBoard({ ...emptyBoard(), ...gameData.puzzle });
       }
     });
   }, []);

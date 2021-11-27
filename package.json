@@ -41,6 +41,8 @@
     ]
   },
   "devDependencies": {
+    "classnames": "^2.3.1",
+    "css-loader": "^4.3.0",
     "eslint-config-prettier": "^8.3.0",
     "react-toastify": "^8.1.0",
     "sass": "^1.43.5"
