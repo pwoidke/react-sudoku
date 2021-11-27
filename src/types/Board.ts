@@ -1,6 +1,6 @@
-// type NonEmptyArray<T> = [T, ...T[]];
-
 export interface Board {
+  [key: string]: string | null;
+
   A1: string | null;
   A2: string | null;
   A3: string | null;
@@ -92,7 +92,7 @@ export interface Board {
   I9: string | null;
 }
 
-export function emptyBoard() {
+export function emptyBoard(): Board {
   const emptyBoard: Board = {
     A1: null,
     A2: null,
