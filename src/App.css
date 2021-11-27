@@ -2,33 +2,64 @@
   text-align: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
+header {
   background-color: #282c34;
-  padding: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  margin-bottom: 2rem;
+}
+
+.generate-buttons,
+.game-info {
+  display: flex;
+  align-items: stretch;
+  width: 500px;
+  margin: auto;
+}
+
+.generate-buttons *,
+.game-info .info-item * {
+  display: inline-block;
+  flex: 1 0 auto;
+  margin: 1em;
+  text-transform: capitalize;
+}
+
+.info-item {
+  display: flex;
+  align-items: baseline;
+  flex: auto;
+  width: 250px;
+  border: 1px solid #444;
+  border-radius: 10px;
   margin-bottom: 1rem;
 }
 
-.App-link {
-  color: #61dafb;
+.info-item:first-child {
+  margin-right: 10px;
+}
+.info-item:last-child {
+  margin-left: 10px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+button {
+  min-height: 30px;
+  padding: 10px;
+  background: none;
+  border-radius: 10px;
+  color: #444;
+  border: 1px solid #444;
+}
+button:hover {
+  color: black;
+  border: 1px solid black;
+  filter: drop-shadow(1px);
+}
+
+.button-solve {
+  width: 500px;
 }

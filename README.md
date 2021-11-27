@@ -53,15 +53,13 @@ todo:
 
 Build other controls
 
-- Generate
-- Validate
 - Solve
 
 API
 
 - RTK
-- Get board
 - Move endpoints to env file
+- Add enum for difficulties
 
 Unit tests
 

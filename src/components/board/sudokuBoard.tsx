@@ -42,7 +42,9 @@ export default function SudokuBoard({ boardValues, updateBoard }: Props) {
         })}
       >
         {value ? (
-          <span key={square}>{value}</span>
+          <span key={square} tabIndex={0}>
+            {value}
+          </span>
         ) : (
           <input
             type='number'
