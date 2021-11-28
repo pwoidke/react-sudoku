@@ -10,21 +10,44 @@ import { ToastContainer } from 'react-toastify';
 
 import './App.css';
 
+var store = require('store');
+
+const copyByValue = (obj: Object) => JSON.parse(JSON.stringify(obj));
+
 function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [gameBoard, setGameBoard] = useState<Board>(emptyBoard());
+  const [initialBoard, setInitialBoard] = useState<Board>(emptyBoard());
   const [boardIsValid, setBoardIsValid] = useState(false);
+  const [boardHistory, setBoardHistory] = useState<Array<Board>>([]);
   const [selectedDifficulty, setSelectedDifficulty] = useState(Difficulties.EASY);
 
   useEffect(() => {
     getNewGameData(selectedDifficulty);
+    // const savedDifficulty = store.get('difficulty');
+    // const savedBoardHistory = store.get('boardHistory');
+    // savedDifficulty && setSelectedDifficulty(Difficulties.EASY);
+    // savedBoardHistory && updateBoard(savedBoardHistory.pop());
     // eslint-disable-next-line
   }, []);
 
+  useEffect(() => {
+    store.set('difficulty', selectedDifficulty);
+  }, [selectedDifficulty]);
 
   useEffect(() => {
     setBoardIsValid(checkBoardValid(gameBoard));
   }, [gameBoard]);
+
+  useEffect(() => {
+    store.set('boardHistory', boardHistory);
+  }, [boardHistory]);
+
+  const resetBoard = () => {
+    updateBoard(initialBoard);
+    store.remove('boardHistory');
+  };
+
   const getNewGameData = (difficulty: string) => {
     // Get new game data
     if (!isLoading) {
@@ -32,7 +55,9 @@ function App() {
       getNewGame(difficulty).then((gameData) => {
         if (gameData) {
           setSelectedDifficulty(gameData.difficulty);
-          updateBoard({ ...emptyBoard(), ...gameData.puzzle });
+          const newBoard = { ...emptyBoard(), ...gameData.puzzle };
+          setInitialBoard(copyByValue(newBoard));
+          updateBoard(copyByValue(newBoard));
         }
         setIsLoading(false);
       });
@@ -40,7 +65,8 @@ function App() {
   };
 
   const updateBoard = (updatedBoard: Board) => {
-    updatedBoard && setGameBoard(updatedBoard);
+    updatedBoard && setGameBoard(copyByValue(updatedBoard));
+    updatedBoard && setBoardHistory([...boardHistory, copyByValue(updatedBoard)]);
   };
 
   const onCheckValid = (gameBoard: Board) => (e: React.MouseEvent) => {
@@ -52,48 +78,60 @@ function App() {
       <header>
         <h1>Sudoku</h1>
       </header>
-      <ToastContainer position='top-center' autoClose={5000} closeOnClick pauseOnHover />
-      <SudokuBoard boardValues={gameBoard} onUpdateBoard={updateBoard}></SudokuBoard>
-      <div className='generate-buttons'>
-        <h3>Generate:</h3>
-        {mapEnum(Difficulties, (difficulty: string) => {
-          return (
-            <button
-              key={difficulty}
-              onClick={() => {
-                getNewGameData(difficulty);
-              }}
-            >
-              {difficulty}
-            </button>
-          );
-        })}
+      <div className='content'>
+        <ToastContainer position='top-center' autoClose={5000} closeOnClick pauseOnHover />
+        <SudokuBoard boardValues={gameBoard} onUpdateBoard={updateBoard}></SudokuBoard>
+        <div className='generate-buttons'>
+          <h3>Generate:</h3>
+          {mapEnum(Difficulties, (difficulty: string) => {
+            return (
+              <button
+                key={difficulty}
+                className={difficulty}
+                onClick={() => {
+                  getNewGameData(difficulty);
+                }}
+              >
+                {difficulty}
+              </button>
+            );
+          })}
+          <button
+            className='random'
+            onClick={() => {
+              getNewGameData(randomEnum(Difficulties).toLowerCase());
+            }}
+          >
+            Random
+          </button>
+          <button
+            onClick={() => {
+              resetBoard();
+            }}
+          >
+            Reset
+          </button>
+        </div>
+        <div className='game-info'>
+          <div className='info-item'>
+            <button onClick={onCheckValid(gameBoard)}>{boardIsValid ? '✅' : '❌'} Valid?</button>
+            <h3>{boardIsValid ? 'Yep' : 'Nope'}</h3>
+          </div>
+          <div className='info-item'>
+            <h3>🎓 Difficulty:</h3>
+            <p>{selectedDifficulty}</p>
+          </div>
+        </div>
         <button
+          className='button-solve'
           onClick={() => {
-            getNewGameData(randomEnum(Difficulties).toLowerCase());
+            updateBoard(solveSudoku(gameBoard));
           }}
         >
-          Random
+          Solve this bad boy for me
         </button>
       </div>
-      <div className='game-info'>
-        <div className='info-item'>
-          <button onClick={onCheckValid(gameBoard)}>{boardIsValid ? '✅' : '❌'} Valid?</button>
-          <h3>{boardIsValid ? 'Yep' : 'Nope'}</h3>
-        </div>
-        <div className='info-item'>
-          <h3>🎓 Difficulty:</h3>
-          <p>{selectedDifficulty}</p>
-        </div>
-      </div>
-      <button
-        className='button-solve'
-        onClick={() => {
-          updateBoard(solveSudoku(gameBoard));
-        }}
-      >
-        Solve this bad boy for me
-      </button>
+      <footer>🐙</footer>
     </div>
   );
 }

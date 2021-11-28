@@ -41,19 +41,20 @@ export default function SudokuBoard({ boardValues, onUpdateBoard }: Props) {
           [styles.col9]: square[1] === '9',
         })}
       >
-        {value ? (
+        {/* {value ? (
           <span key={square} tabIndex={0}>
             {value}
           </span>
-        ) : (
-          <input
-            type='number'
-            min='1'
-            max='9'
-            key={square}
-            onChange={(e) => updateBoardValues(square, e.target.value)}
-          ></input>
-        )}
+        ) : ( */}
+        <input
+          type='number'
+          min='1'
+          max='9'
+          key={square}
+          value={value || ''}
+          onChange={(e) => updateBoardValues(square, e.target.value)}
+        ></input>
+        {/* )} */}
       </div>
     );
   };

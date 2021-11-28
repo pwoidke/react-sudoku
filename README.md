@@ -60,6 +60,5 @@ todo:
 - Add footer
 - JSDocs
 - Feature flags?
-- Check if valid after each move
-- show invalid row/column/block
+- Highlight validation issues (row/column/block)
 - Toast messaging (error handling)
