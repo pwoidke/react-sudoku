@@ -47,7 +47,7 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 todo:
 
-- Dark mode toggle
+- Dark mode toggle (react-toggle-button isn't working w/ React 17.0.0)
 - font awesome
 - componentize everything
 - clear button
@@ -62,3 +62,4 @@ todo:
 - Feature flags?
 - Check if valid after each move
 - show invalid row/column/block
+- Toast messaging (error handling)

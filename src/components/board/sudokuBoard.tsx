@@ -6,15 +6,15 @@ import styles from './sudokuBoard.module.scss';
 
 export interface Props {
   boardValues: Board;
-  updateBoard: (board: Board) => void;
+  onUpdateBoard: (board: Board) => void;
 }
 
-export default function SudokuBoard({ boardValues, updateBoard }: Props) {
+export default function SudokuBoard({ boardValues, onUpdateBoard }: Props) {
   const updateBoardValues = (position: string, val: string) => {
     console.log(`${position} ${val}`);
     boardValues[position] = val;
 
-    updateBoard(boardValues);
+    onUpdateBoard(boardValues);
   };
 
   const gridSquare = (value: string | null, square: string) => {

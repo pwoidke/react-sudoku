@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import SudokuBoard from './components/board/sudokuBoard';
 import { Board, emptyBoard } from './types/Board';
 import { getNewGame } from './services/GameService';
-import { checkSolution, solveSudoku } from './utils/solver';
+import { checkBoardValid, solveSudoku } from './utils/solver';
 import { mapEnum, randomEnum } from './utils/enum';
 import { Difficulties } from './utils/constants';
 import { ToastContainer } from 'react-toastify';
@@ -11,8 +11,9 @@ import { ToastContainer } from 'react-toastify';
 import './App.css';
 
 function App() {
-  const [gameBoard, setGameBoard] = useState(emptyBoard());
-  const [puzzleSolved, setPuzzleSolved] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [gameBoard, setGameBoard] = useState<Board>(emptyBoard());
+  const [boardIsValid, setBoardIsValid] = useState(false);
   const [selectedDifficulty, setSelectedDifficulty] = useState(Difficulties.EASY);
 
   useEffect(() => {
@@ -20,23 +21,30 @@ function App() {
     // eslint-disable-next-line
   }, []);
 
+
+  useEffect(() => {
+    setBoardIsValid(checkBoardValid(gameBoard));
+  }, [gameBoard]);
   const getNewGameData = (difficulty: string) => {
     // Get new game data
-    getNewGame(difficulty).then((gameData) => {
-      if (gameData) {
-        setSelectedDifficulty(gameData.difficulty);
-        updateBoard({ ...emptyBoard(), ...gameData.puzzle });
-      }
-    });
+    if (!isLoading) {
+      setIsLoading(true);
+      getNewGame(difficulty).then((gameData) => {
+        if (gameData) {
+          setSelectedDifficulty(gameData.difficulty);
+          updateBoard({ ...emptyBoard(), ...gameData.puzzle });
+        }
+        setIsLoading(false);
+      });
+    }
   };
 
   const updateBoard = (updatedBoard: Board) => {
-    setGameBoard(updatedBoard);
-    setPuzzleSolved(checkSolution(gameBoard));
+    updatedBoard && setGameBoard(updatedBoard);
   };
 
-  const onCheckSolved = (gameBoard: Board) => (e: React.MouseEvent) => {
-    setPuzzleSolved(checkSolution(gameBoard));
+  const onCheckValid = (gameBoard: Board) => (e: React.MouseEvent) => {
+    setBoardIsValid(checkBoardValid(gameBoard));
   };
 
   return (
@@ -45,12 +53,17 @@ function App() {
         <h1>Sudoku</h1>
       </header>
       <ToastContainer position='top-center' autoClose={5000} closeOnClick pauseOnHover />
-      <SudokuBoard boardValues={gameBoard} updateBoard={updateBoard}></SudokuBoard>
+      <SudokuBoard boardValues={gameBoard} onUpdateBoard={updateBoard}></SudokuBoard>
       <div className='generate-buttons'>
         <h3>Generate:</h3>
         {mapEnum(Difficulties, (difficulty: string) => {
           return (
-            <button key={difficulty} onClick={() => getNewGameData(difficulty)}>
+            <button
+              key={difficulty}
+              onClick={() => {
+                getNewGameData(difficulty);
+              }}
+            >
               {difficulty}
             </button>
           );
@@ -65,11 +78,11 @@ function App() {
       </div>
       <div className='game-info'>
         <div className='info-item'>
-          <button onClick={onCheckSolved(gameBoard)}>Solved?</button>
-          <h3>{puzzleSolved ? 'Yep' : 'Nope'}</h3>
+          <button onClick={onCheckValid(gameBoard)}>{boardIsValid ? '✅' : '❌'} Valid?</button>
+          <h3>{boardIsValid ? 'Yep' : 'Nope'}</h3>
         </div>
         <div className='info-item'>
-          <h3>Difficulty:</h3>
+          <h3>🎓 Difficulty:</h3>
           <p>{selectedDifficulty}</p>
         </div>
       </div>

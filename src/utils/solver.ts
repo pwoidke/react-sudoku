@@ -3,13 +3,14 @@ import { Board } from '../types/Board';
 // https://github.com/mattflow/sudoku-solver
 const solve = require('@mattflow/sudoku-solver');
 
-export function checkSolution(board: Board): boolean {
+export function checkBoardValid(board: Board): boolean {
   const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
   const cols = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
   let isValid = true;
 
   const checkSet = (set: string[]) => {
-    return set.sort().toString() === '1,2,3,4,5,6,7,8,9';
+    // return set.sort().toString() === '1,2,3,4,5,6,7,8,9';
+    return new Set(set.filter((val) => val.length)).size === set.filter((val) => val.length).length;
   };
 
   // Check rows
@@ -17,7 +18,7 @@ export function checkSolution(board: Board): boolean {
   rows.forEach((row) => {
     set = [];
     cols.forEach((col) => {
-      set.push(board[row + col] || '0');
+      set.push(board[row + col] || '');
     });
 
     isValid = isValid && checkSet(set);
@@ -27,7 +28,7 @@ export function checkSolution(board: Board): boolean {
   cols.forEach((col) => {
     set = [];
     rows.forEach((row) => {
-      set.push(board[row + col] || '0');
+      set.push(board[row + col] || '');
     });
 
     isValid = isValid && checkSet(set);
