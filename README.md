@@ -45,3 +45,4 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 - Error handling for solving blank board
 - Loading spinner might be nice
 - Fix iOS Safari styles
+- Move SCSS vars to constants
