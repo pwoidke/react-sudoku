@@ -8,13 +8,13 @@ export function checkBoardValid(board: Board): boolean {
   const cols = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
   let isValid = true;
 
-  const checkSet = (set: string[]) => {
+  const checkSet = (set: Array<string>) => {
     // return set.sort().toString() === '1,2,3,4,5,6,7,8,9';
     return new Set(set.filter((val) => val.length)).size === set.filter((val) => val.length).length;
   };
 
   // Check rows
-  let set: string[];
+  let set: Array<string>;
   rows.forEach((row) => {
     set = [];
     cols.forEach((col) => {

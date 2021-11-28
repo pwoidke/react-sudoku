@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
-import { css } from '@emotion/react';
-import GridLoader from 'react-spinners/GridLoader';
 
-import { Controls, SudokuBoard } from './components/index';
+import { Controls, LoadingSpinner, SudokuBoard } from './components/index';
 import { Board } from './types/Board';
 import { getNewGame } from './services/GameService';
 import { Difficulties, checkBoardValid, copyByValue, deepCompare, emptyBoard } from './utils/index';
@@ -20,11 +18,6 @@ function App() {
   const [boardIsValid, setBoardIsValid] = useState(false);
   const [boardHistory, setBoardHistory] = useState<Array<Board>>([]);
   const [selectedDifficulty, setSelectedDifficulty] = useState(Difficulties.EASY);
-
-  const override = css`
-    display: block;
-    margin: 0 auto;
-  `;
 
   useEffect(() => {
     const savedDifficulty = store.get('difficulty');
@@ -105,11 +98,7 @@ function App() {
       </header>
       <div className='content'>
         <ToastContainer position='top-center' autoClose={5000} closeOnClick pauseOnHover />
-        {isLoading && (
-          <div className='loading-scrim'>
-            <GridLoader color='#ff3bf4' css={override} loading={isLoading} size={75} />
-          </div>
-        )}
+        <LoadingSpinner isLoading={isLoading} />
         <SudokuBoard boardValues={gameBoard} onUpdateBoard={updateBoard}></SudokuBoard>
         <Controls
           gameBoard={gameBoard}
