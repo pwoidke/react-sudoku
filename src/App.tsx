@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import SudokuBoard from './components/board/sudokuBoard';
 import { Board, emptyBoard } from './types/Board';
 import { getNewGame } from './services/GameService';
-import { checkSolution } from './utils/solver';
+import { checkSolution, solveSudoku } from './utils/solver';
 import { mapEnum, randomEnum } from './utils/enum';
 import { Difficulties } from './utils/constants';
 import { ToastContainer } from 'react-toastify';
@@ -17,24 +17,25 @@ function App() {
 
   useEffect(() => {
     getNewGameData(selectedDifficulty);
+    // eslint-disable-next-line
   }, []);
 
   const getNewGameData = (difficulty: string) => {
-    // Get data from API
+    // Get new game data
     getNewGame(difficulty).then((gameData) => {
       if (gameData) {
         setSelectedDifficulty(gameData.difficulty);
-        setGameBoard({ ...emptyBoard(), ...gameData.puzzle });
+        updateBoard({ ...emptyBoard(), ...gameData.puzzle });
       }
     });
   };
 
   const updateBoard = (updatedBoard: Board) => {
     setGameBoard(updatedBoard);
+    setPuzzleSolved(checkSolution(gameBoard));
   };
 
   const onCheckSolved = (gameBoard: Board) => (e: React.MouseEvent) => {
-    e.preventDefault();
     setPuzzleSolved(checkSolution(gameBoard));
   };
 
@@ -49,7 +50,7 @@ function App() {
         <h3>Generate:</h3>
         {mapEnum(Difficulties, (difficulty: string) => {
           return (
-            <button key={difficulty} onClick={() => setSelectedDifficulty(difficulty)}>
+            <button key={difficulty} onClick={() => getNewGameData(difficulty)}>
               {difficulty}
             </button>
           );
@@ -72,7 +73,14 @@ function App() {
           <p>{selectedDifficulty}</p>
         </div>
       </div>
-      <button className='button-solve'>Solve this bad boy for me</button>
+      <button
+        className='button-solve'
+        onClick={() => {
+          updateBoard(solveSudoku(gameBoard));
+        }}
+      >
+        Solve this bad boy for me
+      </button>
     </div>
   );
 }

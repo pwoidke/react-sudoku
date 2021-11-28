@@ -47,24 +47,16 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 todo:
 
-- input events
-- Click, set value
-- Arrow/tab navigation
-
-Build other controls
-
-- Solve
-
 API
 
 - RTK
 - Move endpoints to env file
-- Add enum for difficulties
 
 Unit tests
 
 If time:
 
+- Arrow/tab navigation
 - Dark mode
 - Save progress to local storage
 - JSDocs

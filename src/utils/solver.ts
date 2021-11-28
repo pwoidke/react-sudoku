@@ -1,5 +1,7 @@
 import { Board } from '../types/Board';
 
+const solve = require('@mattflow/sudoku-solver');
+
 export function checkSolution(board: Board): boolean {
   const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
   const cols = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
@@ -52,4 +54,16 @@ export function checkSolution(board: Board): boolean {
   }
 
   return isValid;
+}
+
+export function solveSudoku(gameBoard: Board): Board {
+  var solverString = Object.values(gameBoard)
+    .map((value) => parseInt(value || '0'))
+    .join('');
+  const solved = solve(solverString);
+  const solvedValues = solved.split('');
+  Object.keys(gameBoard).forEach((square, index) => {
+    gameBoard[square] = solvedValues[index];
+  });
+  return gameBoard;
 }
