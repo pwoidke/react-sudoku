@@ -1,5 +1,5 @@
 import { Game } from '../types/Game';
-import { emptyBoard } from '../types/Board';
+import { emptyBoard } from '../utils/index';
 
 export async function getNewGame(difficulty: string): Promise<Game> {
   try {
@@ -8,6 +8,6 @@ export async function getNewGame(difficulty: string): Promise<Game> {
     );
     return await response.json();
   } catch (error) {
-    return { difficulty: 'error', puzzle: emptyBoard() };
+    return { difficulty: 'error', puzzle: emptyBoard };
   }
 }

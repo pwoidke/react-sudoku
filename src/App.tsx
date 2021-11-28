@@ -4,9 +4,9 @@ import { css } from '@emotion/react';
 import GridLoader from 'react-spinners/GridLoader';
 
 import { Controls, SudokuBoard } from './components/index';
-import { Board, emptyBoard } from './types/Board';
+import { Board } from './types/Board';
 import { getNewGame } from './services/GameService';
-import { Difficulties, checkBoardValid, copyByValue, deepCompare } from './utils/index';
+import { Difficulties, checkBoardValid, copyByValue, deepCompare, emptyBoard } from './utils/index';
 
 import './App.css';
 
@@ -15,8 +15,8 @@ var store = require('store');
 function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [historyIndex, setHistoryIndex] = useState(-1);
-  const [gameBoard, setGameBoard] = useState<Board>(emptyBoard());
-  const [initialBoard, setInitialBoard] = useState<Board>(emptyBoard());
+  const [gameBoard, setGameBoard] = useState<Board>(emptyBoard);
+  const [initialBoard, setInitialBoard] = useState<Board>(emptyBoard);
   const [boardIsValid, setBoardIsValid] = useState(false);
   const [boardHistory, setBoardHistory] = useState<Array<Board>>([]);
   const [selectedDifficulty, setSelectedDifficulty] = useState(Difficulties.EASY);
@@ -58,7 +58,7 @@ function App() {
   };
 
   const clearBoard = () => {
-    updateBoard(emptyBoard());
+    updateBoard(emptyBoard);
   };
 
   const getNewGameData = (difficulty: string) => {
@@ -67,7 +67,7 @@ function App() {
       getNewGame(difficulty).then((gameData) => {
         if (gameData) {
           setSelectedDifficulty(gameData.difficulty);
-          const newBoard = { ...emptyBoard(), ...gameData.puzzle };
+          const newBoard = { ...emptyBoard, ...gameData.puzzle };
           setInitialBoard(copyByValue(newBoard));
           setBoardHistory([copyByValue(newBoard)]);
           updateBoard(copyByValue(newBoard));
