@@ -3,6 +3,7 @@
   display: flex;
   min-height: 100vh;
   flex-direction: column;
+  min-width: 500px;
 }
 
 header {
@@ -14,6 +15,13 @@ header {
   font-size: calc(10px + 2vmin);
   color: white;
   margin-bottom: 2rem;
+}
+
+header h1 {
+  width: 500px;
+  text-align: left;
+  font-family: monospace;
+  font-size: 1.75em;
 }
 
 .content {

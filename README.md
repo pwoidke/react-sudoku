@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# React Sudoku
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and based on [SuGOku](https://sugoku.herokuapp.com/).
 
 ## Available Scripts
 
@@ -29,15 +29,15 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `todo:`
+### `TODOs (and things I wanted to do but didn't have time):`
 
 - ~~Dark mode toggle~~ react-toggle-button isn't working w/ React 17.0.0
 - ~~font awesome~~ Just use emojis
 - Arrow/tab navigation (arrow through grid, enter to enter text, enter again to exit)
 - unit tests
 - ~~Move endpoints to env file~~ Probably not necessary
-- RTK?
-- Redux for state management
+- ~~RTK?~~ Fetch is fine since there's just 1 API call
+- Context/Redux for state management
 - JSDocs
 - ~~Feature flags?~~ Can't think of anything worth using them
 - Highlight validation issues (row/column/block)

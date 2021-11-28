@@ -111,7 +111,11 @@ function App() {
           onCheckValid={onCheckValid}
         ></Controls>
       </div>
-      <footer>🐙</footer>
+      <footer>
+        <a href='https://github.com/pwoidke/react-sudoku' target='_blank' rel='noreferrer'>
+          🐙
+        </a>
+      </footer>
     </div>
   );
 }
