@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import GridLoader from 'react-spinners/GridLoader';
 
-import styles from './loadingSpinner.module.scss';
+// import styles from './loadingSpinner.module.scss';
 
 export interface LoadingSpinnerProps {
   isLoading: boolean;

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 
 import { Controls, LoadingSpinner, SudokuBoard } from './components/index';
 import { Board } from './types/Board';
 import { getNewGame } from './services/GameService';
 import { Difficulties, checkBoardValid, copyByValue, deepCompare, emptyBoard } from './utils/index';
 
+import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 
 var store = require('store');
@@ -94,7 +95,7 @@ function App() {
   return (
     <div className='App'>
       <header>
-        <h1>Sudoku</h1>
+        <h1>Spek-DoKu</h1>
       </header>
       <div className='content'>
         <ToastContainer position='top-center' autoClose={5000} closeOnClick pauseOnHover />
