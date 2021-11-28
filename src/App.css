@@ -54,6 +54,7 @@ button {
   color: #444;
   border: 1px solid #444;
 }
+
 button:hover {
   color: black;
   border: 1px solid black;
@@ -62,4 +63,36 @@ button:hover {
 
 .button-solve {
   width: 500px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .App {
+    background-color: #333;
+    color: #ccc;
+    border-color: #ccc;
+  }
+
+  header {
+    background-color: rgb(136, 136, 136);
+    color: black;
+  }
+
+  .info-item {
+    border: 1px solid #ccc;
+  }
+
+  button {
+    color: #ccc;
+    border: 1px solid #ccc;
+  }
+
+  button:hover {
+    color: white;
+    border: 1px solid white;
+  }
+
+  input {
+    background-color: #333;
+    color: #ccc;
+  }
 }

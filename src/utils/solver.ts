@@ -1,5 +1,6 @@
 import { Board } from '../types/Board';
 
+// https://github.com/mattflow/sudoku-solver
 const solve = require('@mattflow/sudoku-solver');
 
 export function checkSolution(board: Board): boolean {

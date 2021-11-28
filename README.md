@@ -47,20 +47,18 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 todo:
 
-API
-
-- RTK
+- Dark mode toggle
+- font awesome
+- componentize everything
+- clear button
+- difficulty button borders
+- history in local storage, undo
+- Arrow/tab navigation (arrow through grid, enter to enter text, enter again to exit)
+- unit tests
 - Move endpoints to env file
-
-Unit tests
-
-If time:
-
-- Arrow/tab navigation
-- Dark mode
-- Save progress to local storage
+- RTK?
+- Add footer
 - JSDocs
 - Feature flags?
-- Undo moves (push state onto stack)
 - Check if valid after each move
 - show invalid row/column/block
