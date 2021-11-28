@@ -58,16 +58,20 @@ function App() {
   const getNewGameData = (difficulty: string) => {
     if (!isLoading) {
       setIsLoading(true);
-      getNewGame(difficulty).then((gameData) => {
-        if (gameData) {
-          setSelectedDifficulty(gameData.difficulty);
-          const newBoard = { ...emptyBoard, ...gameData.puzzle };
-          setInitialBoard(copyByValue(newBoard));
-          setBoardHistory([copyByValue(newBoard)]);
-          updateBoard(copyByValue(newBoard));
-        }
-        setIsLoading(false);
-      });
+      getNewGame(difficulty)
+        .then((gameData) => {
+          if (gameData) {
+            setSelectedDifficulty(gameData.difficulty);
+            const newBoard = { ...emptyBoard, ...gameData.puzzle };
+            setInitialBoard(copyByValue(newBoard));
+            setBoardHistory([copyByValue(newBoard)]);
+            updateBoard(copyByValue(newBoard));
+          }
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          toast.error(error);
+        });
     }
   };
 
@@ -111,6 +115,7 @@ function App() {
           updateBoard={updateBoard}
           getNewGameData={getNewGameData}
           onCheckValid={onCheckValid}
+          toast={toast}
         ></Controls>
       </div>
       <footer>

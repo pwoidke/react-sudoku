@@ -18,6 +18,7 @@ export interface ControlsProps {
   getNewGameData: (difficulty: string) => void;
   onCheckValid: (gameBoard: Board) => void;
   updateBoard: (gameBoard: Board) => void;
+  toast: any;
 }
 
 export function Controls({
@@ -30,6 +31,7 @@ export function Controls({
   getNewGameData,
   onCheckValid,
   updateBoard,
+  toast,
 }: ControlsProps) {
   return (
     <div className={styles.controls}>
@@ -49,7 +51,11 @@ export function Controls({
         className='button-solve'
         overrideStyle={{ padding: '10px 0', width: 498 }}
         onClickEvent={() => {
-          updateBoard(solveSudoku(gameBoard));
+          try {
+            updateBoard(solveSudoku(gameBoard));
+          } catch (error: any) {
+            toast.error(error.message);
+          }
         }}
       >
         Solve this bad boy for me

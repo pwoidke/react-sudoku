@@ -63,15 +63,11 @@ export function solveSudoku(gameBoard: Board): Board {
     .map((value) => parseInt(value || '0'))
     .join('');
   let solved;
-  try {
-    solved = solve(solverString);
-    const solvedValues = solved.split('');
-    Object.keys(gameBoard).forEach((square, index) => {
-      gameBoard[square] = solvedValues[index];
-    });
-  } catch {
-    // Todo: Toast error message: Not enough numbers to solve
-  }
+  solved = solve(solverString);
+  const solvedValues = solved.split('');
+  Object.keys(gameBoard).forEach((square, index) => {
+    gameBoard[square] = solvedValues[index];
+  });
 
   return gameBoard;
 }
