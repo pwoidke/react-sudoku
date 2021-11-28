@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import { ToastContainer } from 'react-toastify';
 
 import { Controls, SudokuBoard } from './components/index';
 import { Board, emptyBoard } from './types/Board';
 import { getNewGame } from './services/GameService';
-import { checkBoardValid } from './utils/solver';
-
-import { Difficulties } from './utils/constants';
-import { ToastContainer } from 'react-toastify';
+import { Difficulties, checkBoardValid, copyByValue } from './utils/index';
 
 import './App.css';
 
 var store = require('store');
-
-const copyByValue = (obj: Object) => JSON.parse(JSON.stringify(obj));
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);

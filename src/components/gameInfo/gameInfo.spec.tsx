@@ -4,7 +4,7 @@ import { render } from '@testing-library/react';
 
 import { GameInfo } from './gameInfo';
 import { emptyBoard } from '../../types/Board';
-import { Difficulties } from '../../utils/constants';
+import { Difficulties } from '../../utils/index';
 
 describe('Game Controls', () => {
   it('should render successfully', () => {

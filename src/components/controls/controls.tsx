@@ -4,7 +4,7 @@ import { GameInfo } from '../gameInfo/gameInfo';
 import { NewGameButtons } from '../newGameButtons/newGameButtons';
 
 import { Board } from '../../types/Board';
-import { solveSudoku } from '../../utils/solver';
+import { solveSudoku } from '../../utils/index';
 
 import styles from './controls.module.scss';
 

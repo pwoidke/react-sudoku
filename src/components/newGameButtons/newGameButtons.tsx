@@ -1,7 +1,6 @@
 import { Button } from '../button/button';
 
-import { mapEnum, randomEnum } from '../../utils/enum';
-import { Difficulties } from '../../utils/constants';
+import { Difficulties, mapEnum, randomEnum } from '../../utils/index';
 
 import styles from './newGameButtons.module.scss';
 import { CSSProperties } from 'react';
