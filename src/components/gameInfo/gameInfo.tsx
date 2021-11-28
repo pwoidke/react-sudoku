@@ -21,11 +21,12 @@ export function GameInfo({
     <div className={styles.info}>
       <div className={styles.item}>
         <Button
-          text={`${boardIsValid ? '✅' : '❌'} Valid?`}
           onClickEvent={() => {
             onCheckValid(gameBoard);
           }}
-        ></Button>
+        >
+          {boardIsValid ? '✅' : '❌'} Valid?
+        </Button>
         <h3>{boardIsValid ? 'Yep' : 'Nope'}</h3>
       </div>
       <div className={styles.item}>

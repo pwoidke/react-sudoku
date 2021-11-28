@@ -46,13 +46,14 @@ export function Controls({
         onCheckValid={onCheckValid}
       ></GameInfo>
       <Button
-        text='Solve this bad boy for me'
         className='button-solve'
         overrideStyle={{ padding: '10px 0', width: 498 }}
         onClickEvent={() => {
           updateBoard(solveSudoku(gameBoard));
         }}
-      ></Button>
+      >
+        Solve this bad boy for me
+      </Button>
     </div>
   );
 }

@@ -4,7 +4,7 @@ import { ToastContainer } from 'react-toastify';
 import { Controls, SudokuBoard } from './components/index';
 import { Board, emptyBoard } from './types/Board';
 import { getNewGame } from './services/GameService';
-import { Difficulties, checkBoardValid, copyByValue } from './utils/index';
+import { Difficulties, checkBoardValid, copyByValue, deepCompare } from './utils/index';
 
 import './App.css';
 
@@ -22,10 +22,12 @@ function App() {
   useEffect(() => {
     const savedDifficulty = store.get('difficulty');
     const savedBoardHistory = store.get('boardHistory');
-    savedDifficulty && setSelectedDifficulty(savedDifficulty);
-    savedBoardHistory && savedBoardHistory.length
-      ? updateBoard(savedBoardHistory.pop())
-      : getNewGameData(savedDifficulty ? savedDifficulty : selectedDifficulty);
+    if (savedDifficulty && savedBoardHistory && savedBoardHistory.length) {
+      setSelectedDifficulty(savedDifficulty);
+      updateBoard(savedBoardHistory.pop());
+    } else {
+      getNewGameData(selectedDifficulty);
+    }
     // eslint-disable-next-line
   }, []);
 
@@ -38,7 +40,10 @@ function App() {
   }, [gameBoard]);
 
   useEffect(() => {
-    store.set('boardHistory', boardHistory);
+    if (boardHistory.length) {
+      Object.values(boardHistory[boardHistory.length - 1]).join('').length &&
+        store.set('boardHistory', boardHistory);
+    }
   }, [boardHistory]);
 
   const resetBoard = () => {
@@ -66,7 +71,7 @@ function App() {
   };
 
   const updateBoard = (updatedBoard: Board) => {
-    if (JSON.stringify(updatedBoard) !== JSON.stringify(boardHistory[boardHistory.length - 1])) {
+    if (deepCompare(updatedBoard, boardHistory[boardHistory.length - 1])) {
       updatedBoard && setBoardHistory([...boardHistory, copyByValue(gameBoard)]);
       updatedBoard && setGameBoard(copyByValue(updatedBoard));
     }
@@ -79,7 +84,8 @@ function App() {
   const timeTravel = (steps: number) => {
     setGameBoard(
       boardHistory.length
-        ? boardHistory[boardHistory.length + historyIndex + steps] || initialBoard
+        ? boardHistory[boardHistory.length + historyIndex + steps] ||
+            boardHistory[boardHistory.length - 1]
         : initialBoard
     );
     setHistoryIndex(historyIndex + steps);

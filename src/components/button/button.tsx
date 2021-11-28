@@ -4,7 +4,8 @@ import classnames from 'classnames';
 import styles from './button.module.scss';
 
 export interface ButtonProps {
-  text: string | Element;
+  text?: string | Element;
+  children?: React.ReactNode;
   className?: string;
   onClickEvent: (e: React.MouseEvent | React.KeyboardEvent) => void;
   overrideStyle?: CSSProperties;
@@ -14,6 +15,7 @@ export interface ButtonProps {
 
 export function Button({
   text,
+  children,
   className,
   onClickEvent,
   overrideStyle = {},
@@ -52,6 +54,7 @@ export function Button({
           }}
         >
           {text}
+          {children}
         </div>
       </div>
     </div>

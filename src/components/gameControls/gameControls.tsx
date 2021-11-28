@@ -21,36 +21,40 @@ export function GameControls({ timeTravel, resetBoard, clearBoard }: GameControl
     <div className={styles.controls}>
       <div className={styles.time}>
         <Button
-          text='⏪ Undo'
           className={classnames('button-undo', styles.button)}
           overrideStyle={{ ...styleOverrides, borderRadius: '10px 0 0 10px' }}
           onClickEvent={() => {
             timeTravel(-1);
           }}
-        ></Button>
+        >
+          ⏪ Undo
+        </Button>
         <Button
-          text='⏩ Redo'
           className='button-redo'
           overrideStyle={{ ...styleOverrides, borderRadius: '0 10px 10px 0' }}
           onClickEvent={() => {
             timeTravel(1);
           }}
-        ></Button>
+        >
+          ⏩ Redo
+        </Button>
       </div>
       <Button
-        text='👋 Reset'
         overrideStyle={styleOverrides}
         onClickEvent={() => {
           resetBoard();
         }}
-      ></Button>
+      >
+        👋 Reset
+      </Button>
       <Button
-        text='🧼 Clear'
         overrideStyle={styleOverrides}
         onClickEvent={() => {
           clearBoard();
         }}
-      ></Button>
+      >
+        🧼 Clear
+      </Button>
     </div>
   );
 }

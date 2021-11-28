@@ -56,13 +56,14 @@ export function NewGameButtons({ getNewGameData }: NewGameButtonsProps) {
         );
       })}
       <Button
-        text='🎲 Random'
         className='random'
         overrideStyle={{ ...styleOverrides.all, ...styleOverrides.random }}
         onClickEvent={() => {
           getNewGameData(randomEnum(Difficulties).toLowerCase());
         }}
-      ></Button>
+      >
+        🎲 Random
+      </Button>
     </div>
   );
 }

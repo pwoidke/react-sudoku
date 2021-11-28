@@ -37,8 +37,8 @@ export function Cell({ value, square, updateBoardValues }: CellProps) {
         type='number'
         min={1}
         max={9}
-        value={value || ''}
-        onChange={(e) => updateBoardValues(square, e.target.value)}
+        defaultValue={value || ''}
+        onBlur={(e) => updateBoardValues(square, e.target.value)}
       ></input>
     </div>
   );
