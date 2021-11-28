@@ -26,20 +26,28 @@ footer {
   margin: auto;
 }
 
+.game-controls,
 .generate-buttons,
 .game-info {
   display: flex;
   align-items: stretch;
+  justify-content: space-between;
   width: 500px;
   margin: 1rem auto;
 }
 
+.game-controls *,
 .generate-buttons *,
 .game-info .info-item * {
   display: inline-block;
   flex: 1 0 auto;
   /* margin: 1em; */
   text-transform: capitalize;
+}
+
+.game-controls * {
+  flex: 0 0 auto;
+  width: 120px;
 }
 
 .easy {

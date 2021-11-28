@@ -16,6 +16,7 @@ const copyByValue = (obj: Object) => JSON.parse(JSON.stringify(obj));
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
+  const [historyIndex, setHistoryIndex] = useState(-1);
   const [gameBoard, setGameBoard] = useState<Board>(emptyBoard());
   const [initialBoard, setInitialBoard] = useState<Board>(emptyBoard());
   const [boardIsValid, setBoardIsValid] = useState(false);
@@ -66,16 +67,21 @@ function App() {
   };
 
   const updateBoard = (updatedBoard: Board) => {
+    updatedBoard && setBoardHistory([...boardHistory, copyByValue(gameBoard)]);
     updatedBoard && setGameBoard(copyByValue(updatedBoard));
-    updatedBoard && setBoardHistory([...boardHistory, copyByValue(updatedBoard)]);
   };
 
   const onCheckValid = (gameBoard: Board) => (e: React.MouseEvent) => {
     setBoardIsValid(checkBoardValid(gameBoard));
   };
 
-  const undo = () => {
-    setGameBoard(boardHistory.length ? boardHistory.pop() || initialBoard : initialBoard);
+  const timeTravel = (steps: number) => {
+    setGameBoard(
+      boardHistory.length
+        ? boardHistory[boardHistory.length + historyIndex + steps] || initialBoard
+        : initialBoard
+    );
+    setHistoryIndex(historyIndex + steps);
   };
 
   return (
@@ -90,10 +96,25 @@ function App() {
           <button
             className='button-undo'
             onClick={() => {
-              undo();
+              timeTravel(-1);
             }}
           >
-            ⎌ Undo
+            ⏪ Undo
+          </button>
+          <button
+            className='button-redo'
+            onClick={() => {
+              timeTravel(1);
+            }}
+          >
+            ⏩ Redo
+          </button>
+          <button
+            onClick={() => {
+              resetBoard();
+            }}
+          >
+            👋 Reset
           </button>
         </div>
         <div className='generate-buttons'>
@@ -118,13 +139,6 @@ function App() {
             }}
           >
             Random
-          </button>
-          <button
-            onClick={() => {
-              resetBoard();
-            }}
-          >
-            Reset
           </button>
         </div>
         <div className='game-info'>
