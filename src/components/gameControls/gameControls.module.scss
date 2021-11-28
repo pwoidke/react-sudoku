@@ -1,5 +1,6 @@
 .controls {
   display: flex;
+  justify-content: space-between;
 
   * {
     display: inline-block;
@@ -11,4 +12,8 @@
     flex: 0 0 auto;
     width: 120px;
   }
+}
+
+.time {
+  flex: 0 0 auto;
 }

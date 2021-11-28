@@ -1,3 +1,6 @@
+import { CSSProperties } from 'react';
+import classnames from 'classnames';
+
 import { Button } from '../button/button';
 
 import styles from './gameControls.module.scss';
@@ -9,13 +12,18 @@ export interface GameControlsProps {
 }
 
 export function GameControls({ timeTravel, resetBoard, clearBoard }: GameControlsProps) {
+  const styleOverrides: CSSProperties = {
+    flex: '0 0 auto',
+    width: 80,
+  };
+
   return (
     <div className={styles.controls}>
-      <div className='time-travel-controls'>
+      <div className={styles.time}>
         <Button
           text='⏪ Undo'
-          className='button-undo'
-          overrideStyle={{ borderRadius: '10px 0 0 10px' }}
+          className={classnames('button-undo', styles.button)}
+          overrideStyle={{ ...styleOverrides, borderRadius: '10px 0 0 10px' }}
           onClickEvent={() => {
             timeTravel(-1);
           }}
@@ -23,7 +31,7 @@ export function GameControls({ timeTravel, resetBoard, clearBoard }: GameControl
         <Button
           text='⏩ Redo'
           className='button-redo'
-          overrideStyle={{ borderRadius: '0 10px 10px 0' }}
+          overrideStyle={{ ...styleOverrides, borderRadius: '0 10px 10px 0' }}
           onClickEvent={() => {
             timeTravel(1);
           }}
@@ -31,12 +39,14 @@ export function GameControls({ timeTravel, resetBoard, clearBoard }: GameControl
       </div>
       <Button
         text='👋 Reset'
+        overrideStyle={styleOverrides}
         onClickEvent={() => {
           resetBoard();
         }}
       ></Button>
       <Button
         text='🧼 Clear'
+        overrideStyle={styleOverrides}
         onClickEvent={() => {
           clearBoard();
         }}

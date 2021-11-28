@@ -1,6 +1,10 @@
 .buttons {
   display: flex;
 
+  h3 {
+    text-align: left;
+  }
+
   * {
     flex: 1 0 auto;
     text-transform: capitalize;

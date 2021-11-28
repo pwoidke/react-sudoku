@@ -35,7 +35,7 @@ export function NewGameButtons({ getNewGameData }: NewGameButtonsProps) {
       borderRadius: '0 10px 10px 0',
     },
     random: {
-      margin: '0 1em',
+      marginLeft: '1em',
     },
   };
 
@@ -59,6 +59,7 @@ export function NewGameButtons({ getNewGameData }: NewGameButtonsProps) {
       <Button
         text='🎲 Random'
         className='random'
+        overrideStyle={{ ...styleOverrides.all, ...styleOverrides.random }}
         onClickEvent={() => {
           getNewGameData(randomEnum(Difficulties).toLowerCase());
         }}

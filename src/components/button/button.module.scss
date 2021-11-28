@@ -8,9 +8,9 @@
   cursor: pointer;
   user-select: none;
   text-align: center;
-
-  display: inline-block;
+  display: flex;
   flex: 1 0 auto;
+  justify-content: center;
   text-transform: capitalize;
 
   &:hover {

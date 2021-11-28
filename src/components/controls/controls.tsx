@@ -48,7 +48,7 @@ export function Controls({
       <Button
         text='Solve this bad boy for me'
         className='button-solve'
-        overrideStyle={{ width: 500 }}
+        overrideStyle={{ padding: '10px 0', width: 498 }}
         onClickEvent={() => {
           updateBoard(solveSudoku(gameBoard));
         }}

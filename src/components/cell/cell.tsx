@@ -1,6 +1,6 @@
 // import classnames from 'classnames';
 
-// import styles from './cell.module.scss';
+import styles from './cell.module.scss';
 
 export interface CellProps {
   value: string | null;
@@ -10,7 +10,7 @@ export interface CellProps {
 
 export function Cell({ value, key, updateBoardValues }: CellProps) {
   return (
-    <div>
+    <div className={styles.cell}>
       <input
         type='number'
         min={1}

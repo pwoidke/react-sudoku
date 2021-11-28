@@ -1,5 +1,6 @@
 .info {
   display: flex;
+  justify-content: space-between;
 
   .item {
     display: flex;
@@ -17,11 +18,12 @@
       margin-left: 10px;
     }
 
-    * {
-      display: inline-block;
+    > * {
+      display: flex;
       flex: 1 0 auto;
       text-transform: capitalize;
-      margin: 1em;
+      margin: 0.5em 0.75em;
+      justify-content: center;
     }
 
     @media (prefers-color-scheme: dark) {
