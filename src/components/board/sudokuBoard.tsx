@@ -40,6 +40,7 @@ export default function SudokuBoard({ boardValues, onUpdateBoard }: Props) {
           [styles.col8]: square[1] === '8',
           [styles.col9]: square[1] === '9',
         })}
+        key={square}
       >
         {/* {value ? (
           <span key={square} tabIndex={0}>

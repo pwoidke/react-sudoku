@@ -23,11 +23,12 @@ function App() {
   const [selectedDifficulty, setSelectedDifficulty] = useState(Difficulties.EASY);
 
   useEffect(() => {
-    getNewGameData(selectedDifficulty);
-    // const savedDifficulty = store.get('difficulty');
-    // const savedBoardHistory = store.get('boardHistory');
-    // savedDifficulty && setSelectedDifficulty(Difficulties.EASY);
-    // savedBoardHistory && updateBoard(savedBoardHistory.pop());
+    const savedDifficulty = store.get('difficulty');
+    const savedBoardHistory = store.get('boardHistory');
+    savedDifficulty && setSelectedDifficulty(savedDifficulty);
+    savedBoardHistory && savedBoardHistory.length
+      ? updateBoard(savedBoardHistory.pop())
+      : getNewGameData(savedDifficulty ? savedDifficulty : selectedDifficulty);
     // eslint-disable-next-line
   }, []);
 
@@ -73,6 +74,10 @@ function App() {
     setBoardIsValid(checkBoardValid(gameBoard));
   };
 
+  const undo = () => {
+    setGameBoard(boardHistory.length ? boardHistory.pop() || initialBoard : initialBoard);
+  };
+
   return (
     <div className='App'>
       <header>
@@ -81,6 +86,16 @@ function App() {
       <div className='content'>
         <ToastContainer position='top-center' autoClose={5000} closeOnClick pauseOnHover />
         <SudokuBoard boardValues={gameBoard} onUpdateBoard={updateBoard}></SudokuBoard>
+        <div className='game-controls'>
+          <button
+            className='button-undo'
+            onClick={() => {
+              undo();
+            }}
+          >
+            ⎌ Undo
+          </button>
+        </div>
         <div className='generate-buttons'>
           <h3>Generate:</h3>
           {mapEnum(Difficulties, (difficulty: string) => {
