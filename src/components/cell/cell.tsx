@@ -31,7 +31,6 @@ export function Cell({ value, square, updateBoardValues }: CellProps) {
         [styles.col8]: square[1] === '8',
         [styles.col9]: square[1] === '9',
       })}
-      key={square}
     >
       <input
         type='number'

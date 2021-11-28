@@ -10,7 +10,6 @@ export interface ButtonProps {
   onClickEvent: (e: React.MouseEvent | React.KeyboardEvent) => void;
   overrideStyle?: CSSProperties;
   disabled?: boolean;
-  key?: string;
 }
 
 export function Button({
@@ -20,7 +19,6 @@ export function Button({
   onClickEvent,
   overrideStyle = {},
   disabled,
-  key,
 }: ButtonProps) {
   return (
     <div
@@ -38,7 +36,6 @@ export function Button({
           onClickEvent(e);
         }
       }}
-      key={key}
     >
       <div
         style={{

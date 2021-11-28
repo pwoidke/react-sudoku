@@ -41,8 +41,6 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 - JSDocs
 - ~~Feature flags?~~ Can't think of anything worth using them
 - Highlight validation issues (row/column/block)
-- Toast messaging (error handling)
-- Error handling for solving blank board
-- Loading spinner might be nice
+- Toast messaging (error handling: solving blank board, solving invalid board, API failure)
 - Fix iOS Safari styles
 - Move SCSS vars to constants

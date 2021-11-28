@@ -9,7 +9,7 @@ export function mapEnum(enumerable: EnumType, fn: Function): any[] {
   let enumValues: string[] = enumMembers.filter((v) => typeof v === 'string');
 
   // now map through the enum values
-  return enumValues.map((m) => fn(m));
+  return enumValues.map((m, i) => fn(m, i));
 }
 
 export function randomEnum<T>(enumerable: T): T[keyof T] {

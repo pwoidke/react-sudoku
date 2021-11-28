@@ -20,11 +20,12 @@ export function SudokuBoard({ boardValues, onUpdateBoard }: BoardProps) {
     <>
       <div className={styles.grid}>
         {boardValues &&
-          Object.keys(boardValues).map((square: string) => {
+          Object.keys(boardValues).map((square: string, index: number) => {
             return (
               <Cell
                 value={boardValues[square]}
                 square={square}
+                key={square}
                 updateBoardValues={updateBoardValues}
               ></Cell>
             );
