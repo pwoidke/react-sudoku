@@ -47,18 +47,16 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 todo:
 
-- Dark mode toggle (react-toggle-button isn't working w/ React 17.0.0)
-- font awesome
+- ~~Dark mode toggle~~ react-toggle-button isn't working w/ React 17.0.0
+- ~~font awesome~~ Just use emojis
 - componentize everything
-- clear button
-- difficulty button borders
-- history in local storage, undo
 - Arrow/tab navigation (arrow through grid, enter to enter text, enter again to exit)
 - unit tests
 - Move endpoints to env file
 - RTK?
-- Add footer
 - JSDocs
-- Feature flags?
+- ~~Feature flags?~~ Can't think of anything worth using them
 - Highlight validation issues (row/column/block)
 - Toast messaging (error handling)
+- Error handling for solving blank board
+- Loading spinner might be nice

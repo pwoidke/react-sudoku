@@ -47,7 +47,10 @@ function App() {
 
   const resetBoard = () => {
     updateBoard(initialBoard);
-    store.remove('boardHistory');
+  };
+
+  const clearBoard = () => {
+    updateBoard(emptyBoard());
   };
 
   const getNewGameData = (difficulty: string) => {
@@ -59,6 +62,7 @@ function App() {
           setSelectedDifficulty(gameData.difficulty);
           const newBoard = { ...emptyBoard(), ...gameData.puzzle };
           setInitialBoard(copyByValue(newBoard));
+          setBoardHistory([copyByValue(newBoard)]);
           updateBoard(copyByValue(newBoard));
         }
         setIsLoading(false);
@@ -67,8 +71,10 @@ function App() {
   };
 
   const updateBoard = (updatedBoard: Board) => {
-    updatedBoard && setBoardHistory([...boardHistory, copyByValue(gameBoard)]);
-    updatedBoard && setGameBoard(copyByValue(updatedBoard));
+    if (JSON.stringify(updatedBoard) !== JSON.stringify(boardHistory[boardHistory.length - 1])) {
+      updatedBoard && setBoardHistory([...boardHistory, copyByValue(gameBoard)]);
+      updatedBoard && setGameBoard(copyByValue(updatedBoard));
+    }
   };
 
   const onCheckValid = (gameBoard: Board) => (e: React.MouseEvent) => {
@@ -93,28 +99,37 @@ function App() {
         <ToastContainer position='top-center' autoClose={5000} closeOnClick pauseOnHover />
         <SudokuBoard boardValues={gameBoard} onUpdateBoard={updateBoard}></SudokuBoard>
         <div className='game-controls'>
-          <button
-            className='button-undo'
-            onClick={() => {
-              timeTravel(-1);
-            }}
-          >
-            ⏪ Undo
-          </button>
-          <button
-            className='button-redo'
-            onClick={() => {
-              timeTravel(1);
-            }}
-          >
-            ⏩ Redo
-          </button>
+          <div className='time-travel-controls'>
+            <button
+              className='button-undo'
+              onClick={() => {
+                timeTravel(-1);
+              }}
+            >
+              ⏪ Undo
+            </button>
+            <button
+              className='button-redo'
+              onClick={() => {
+                timeTravel(1);
+              }}
+            >
+              ⏩ Redo
+            </button>
+          </div>
           <button
             onClick={() => {
               resetBoard();
             }}
           >
             👋 Reset
+          </button>
+          <button
+            onClick={() => {
+              clearBoard();
+            }}
+          >
+            🧼 Clear
           </button>
         </div>
         <div className='generate-buttons'>
@@ -138,7 +153,7 @@ function App() {
               getNewGameData(randomEnum(Difficulties).toLowerCase());
             }}
           >
-            Random
+            🎲 Random
           </button>
         </div>
         <div className='game-info'>

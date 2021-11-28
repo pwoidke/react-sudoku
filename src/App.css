@@ -36,7 +36,7 @@ footer {
   margin: 1rem auto;
 }
 
-.game-controls *,
+.game-controls button,
 .generate-buttons *,
 .game-info .info-item * {
   display: inline-block;
@@ -45,9 +45,16 @@ footer {
   text-transform: capitalize;
 }
 
-.game-controls * {
+.game-controls button {
   flex: 0 0 auto;
   width: 120px;
+}
+
+.button-undo {
+  border-radius: 10px 0 0 10px;
+}
+.button-redo {
+  border-radius: 0 10px 10px 0;
 }
 
 .easy {
