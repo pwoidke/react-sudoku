@@ -1,0 +1,9 @@
+.buttons {
+  display: flex;
+
+  * {
+    flex: 1 0 auto;
+    text-transform: capitalize;
+    align-items: center;
+  }
+}

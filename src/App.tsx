@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 
-import SudokuBoard from './components/board/sudokuBoard';
+import { Controls, SudokuBoard } from './components/index';
 import { Board, emptyBoard } from './types/Board';
 import { getNewGame } from './services/GameService';
-import { checkBoardValid, solveSudoku } from './utils/solver';
-import { mapEnum, randomEnum } from './utils/enum';
+import { checkBoardValid } from './utils/solver';
+
 import { Difficulties } from './utils/constants';
 import { ToastContainer } from 'react-toastify';
 
@@ -54,7 +54,6 @@ function App() {
   };
 
   const getNewGameData = (difficulty: string) => {
-    // Get new game data
     if (!isLoading) {
       setIsLoading(true);
       getNewGame(difficulty).then((gameData) => {
@@ -98,82 +97,17 @@ function App() {
       <div className='content'>
         <ToastContainer position='top-center' autoClose={5000} closeOnClick pauseOnHover />
         <SudokuBoard boardValues={gameBoard} onUpdateBoard={updateBoard}></SudokuBoard>
-        <div className='game-controls'>
-          <div className='time-travel-controls'>
-            <button
-              className='button-undo'
-              onClick={() => {
-                timeTravel(-1);
-              }}
-            >
-              ⏪ Undo
-            </button>
-            <button
-              className='button-redo'
-              onClick={() => {
-                timeTravel(1);
-              }}
-            >
-              ⏩ Redo
-            </button>
-          </div>
-          <button
-            onClick={() => {
-              resetBoard();
-            }}
-          >
-            👋 Reset
-          </button>
-          <button
-            onClick={() => {
-              clearBoard();
-            }}
-          >
-            🧼 Clear
-          </button>
-        </div>
-        <div className='generate-buttons'>
-          <h3>Generate:</h3>
-          {mapEnum(Difficulties, (difficulty: string) => {
-            return (
-              <button
-                key={difficulty}
-                className={difficulty}
-                onClick={() => {
-                  getNewGameData(difficulty);
-                }}
-              >
-                {difficulty}
-              </button>
-            );
-          })}
-          <button
-            className='random'
-            onClick={() => {
-              getNewGameData(randomEnum(Difficulties).toLowerCase());
-            }}
-          >
-            🎲 Random
-          </button>
-        </div>
-        <div className='game-info'>
-          <div className='info-item'>
-            <button onClick={onCheckValid(gameBoard)}>{boardIsValid ? '✅' : '❌'} Valid?</button>
-            <h3>{boardIsValid ? 'Yep' : 'Nope'}</h3>
-          </div>
-          <div className='info-item'>
-            <h3>🎓 Difficulty:</h3>
-            <p>{selectedDifficulty}</p>
-          </div>
-        </div>
-        <button
-          className='button-solve'
-          onClick={() => {
-            updateBoard(solveSudoku(gameBoard));
-          }}
-        >
-          Solve this bad boy for me
-        </button>
+        <Controls
+          gameBoard={gameBoard}
+          boardIsValid={boardIsValid}
+          selectedDifficulty={selectedDifficulty}
+          timeTravel={timeTravel}
+          resetBoard={resetBoard}
+          clearBoard={clearBoard}
+          updateBoard={updateBoard}
+          getNewGameData={getNewGameData}
+          onCheckValid={onCheckValid}
+        ></Controls>
       </div>
       <footer>🐙</footer>
     </div>

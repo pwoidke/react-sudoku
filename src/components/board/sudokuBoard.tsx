@@ -1,15 +1,15 @@
 import classnames from 'classnames';
 
 import { Board } from '../../types/Board';
-
+import { Cell } from '../cell/cell';
 import styles from './sudokuBoard.module.scss';
 
-export interface Props {
+export interface BoardProps {
   boardValues: Board;
   onUpdateBoard: (board: Board) => void;
 }
 
-export default function SudokuBoard({ boardValues, onUpdateBoard }: Props) {
+export function SudokuBoard({ boardValues, onUpdateBoard }: BoardProps) {
   const updateBoardValues = (position: string, val: string) => {
     console.log(`${position} ${val}`);
     boardValues[position] = val;
@@ -42,20 +42,7 @@ export default function SudokuBoard({ boardValues, onUpdateBoard }: Props) {
         })}
         key={square}
       >
-        {/* {value ? (
-          <span key={square} tabIndex={0}>
-            {value}
-          </span>
-        ) : ( */}
-        <input
-          type='number'
-          min='1'
-          max='9'
-          key={square}
-          value={value || ''}
-          onChange={(e) => updateBoardValues(square, e.target.value)}
-        ></input>
-        {/* )} */}
+        <Cell value={value} key={square} updateBoardValues={updateBoardValues}></Cell>
       </div>
     );
   };

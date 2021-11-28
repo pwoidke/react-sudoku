@@ -1,0 +1,31 @@
+.info {
+  display: flex;
+
+  .item {
+    display: flex;
+    align-items: center;
+    flex: auto;
+    width: 250px;
+    border: 1px dotted #444;
+    border-radius: 10px;
+
+    &:first-child {
+      margin-right: 10px;
+    }
+
+    &:last-child {
+      margin-left: 10px;
+    }
+
+    * {
+      display: inline-block;
+      flex: 1 0 auto;
+      text-transform: capitalize;
+      margin: 1em;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      border: 1px dotted #ddd;
+    }
+  }
+}
