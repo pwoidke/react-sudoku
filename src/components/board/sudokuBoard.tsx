@@ -24,6 +24,7 @@ export function SudokuBoard({ boardValues, onUpdateBoard }: BoardProps) {
             return (
               <Cell
                 value={boardValues[square]}
+                index={index}
                 square={square}
                 key={square}
                 updateBoardValues={updateBoardValues}
