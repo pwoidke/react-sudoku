@@ -108,6 +108,7 @@ export function Cell({ value, index, square, updateBoardValues }: CellProps) {
         defaultValue={value || ''}
         ref={inputCell}
         inputMode='decimal'
+        pattern='[1-9]{1}'
         onBlur={(e) => updateBoardValues(square, e.target.value)}
         onKeyUp={(e: React.KeyboardEvent) => {
           e.stopPropagation();

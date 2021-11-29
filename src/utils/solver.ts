@@ -1,9 +1,10 @@
+import { copyByValue, emptyBoard } from '.';
 import { Board } from '../types/index';
 
 // https://github.com/mattflow/sudoku-solver
 const solve = require('@mattflow/sudoku-solver');
 
-export function checkBoardValid(board: Board): boolean {
+export function checkBoardValid(board: Board = emptyBoard): boolean {
   const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
   const cols = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
   let isValid = true;
@@ -58,7 +59,8 @@ export function checkBoardValid(board: Board): boolean {
   return isValid;
 }
 
-export function solveSudoku(gameBoard: Board): Board {
+export function solveSudoku(board: Board): Board {
+  const gameBoard: Board = copyByValue(board);
   var solverString = Object.values(gameBoard)
     .map((value) => parseInt(value || '0'))
     .join('');

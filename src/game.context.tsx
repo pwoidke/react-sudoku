@@ -3,37 +3,37 @@ import { toast } from 'react-toastify';
 
 import { Board } from './types/index';
 import { getNewGame } from './services/GameService';
-import { Difficulties, checkBoardValid, copyByValue, deepDiff, emptyBoard } from './utils/index';
+import { Difficulties, checkBoardValid, deepDiff, emptyBoard } from './utils/index';
 
 import 'react-toastify/dist/ReactToastify.css';
 
 var store = require('store');
 
 const defaultState = {
-  setGameBoard: () => {},
-  getNewGameData: () => {},
+  isLoading: false,
   selectedDifficulty: Difficulties.EASY,
   boardHistory: [],
   historyIndex: 0,
+  updateBoard: () => {},
+  getNewGameData: () => {},
   resetBoard: () => {},
   clearBoard: () => {},
   checkBoardValid: () => false,
   timeTravel: () => {},
-  isLoading: false,
   toast: toast,
 };
 
 export interface IGameContext {
-  setGameBoard: (board: Board) => void;
-  getNewGameData: (difficulty: string) => void;
+  isLoading: boolean;
   selectedDifficulty: string;
   boardHistory: Array<Board>;
   historyIndex: number;
+  updateBoard: (board: Board) => void;
+  getNewGameData: (difficulty: string) => void;
   resetBoard: () => void;
   clearBoard: () => void;
   checkBoardValid: (board: Board) => boolean;
   timeTravel: (steps: number) => void;
-  isLoading: boolean;
   toast: any;
 }
 
@@ -46,17 +46,17 @@ export interface GameContextProps {
 
 export function GameContextWrapper({ children }: GameContextProps) {
   const [isLoading, setIsLoading] = useState(false);
-  const [historyIndex, setHistoryIndex] = useState(0);
-  const [gameBoard, setGameBoard] = useState<Board>(emptyBoard);
-  const [boardHistory, setBoardHistory] = useState<Array<Board>>([emptyBoard]);
   const [selectedDifficulty, setSelectedDifficulty] = useState(Difficulties.EASY);
+  const [boardHistory, setBoardHistory] = useState<Array<Board>>([emptyBoard]);
+  const [historyIndex, setHistoryIndex] = useState(0);
 
   useEffect(() => {
     const savedDifficulty = store.get('difficulty');
     const savedBoardHistory = store.get('boardHistory');
-    if (savedDifficulty && savedBoardHistory && savedBoardHistory.length) {
+    if (savedDifficulty && savedBoardHistory) {
       setSelectedDifficulty(savedDifficulty);
-      setGameBoard(savedBoardHistory.pop());
+      setBoardHistory(savedBoardHistory);
+      setHistoryIndex(savedBoardHistory.length - 1);
     } else {
       getNewGameData(selectedDifficulty);
     }
@@ -72,23 +72,18 @@ export function GameContextWrapper({ children }: GameContextProps) {
     setHistoryIndex(boardHistory.length - 1);
   }, [boardHistory]);
 
-  useEffect(() => {
-    // IF the board is not empty
-    // And it's the first board
-    // Or the updated board is different than the last saved state
-    // Then add the updated board to the history
-    if (deepDiff(gameBoard, boardHistory[boardHistory.length - 1])) {
-      setBoardHistory([...copyByValue(boardHistory), copyByValue(gameBoard)]);
+  const updateBoard = (board: Board, history: Array<Board> = boardHistory) => {
+    if (deepDiff(board, boardHistory[historyIndex])) {
+      setBoardHistory([...history.slice(0, historyIndex + 1), board]);
     }
-    // eslint-disable-next-line
-  }, [gameBoard]);
+  };
 
   const resetBoard = () => {
-    setGameBoard(copyByValue(boardHistory[1]));
+    setHistoryIndex(1);
   };
 
   const clearBoard = () => {
-    setGameBoard(copyByValue(boardHistory[0]));
+    setHistoryIndex(0);
   };
 
   const getNewGameData = (difficulty: string) => {
@@ -99,8 +94,7 @@ export function GameContextWrapper({ children }: GameContextProps) {
           if (gameData) {
             setSelectedDifficulty(gameData.difficulty);
             const newBoard = { ...emptyBoard, ...gameData.puzzle };
-            store.remove('boardHistory');
-            setGameBoard(copyByValue(newBoard));
+            updateBoard(newBoard, [emptyBoard]);
           }
           setIsLoading(false);
         })
@@ -113,22 +107,21 @@ export function GameContextWrapper({ children }: GameContextProps) {
   const timeTravel = (steps: number) => {
     const newIndex = historyIndex + steps;
     if (newIndex > -1 && newIndex < boardHistory.length) {
-      setGameBoard(copyByValue(boardHistory[newIndex]));
       setHistoryIndex(newIndex);
     }
   };
 
   const provider = {
-    setGameBoard,
-    getNewGameData,
+    isLoading,
     selectedDifficulty,
     boardHistory,
     historyIndex,
+    updateBoard,
+    getNewGameData,
     resetBoard,
     clearBoard,
     checkBoardValid,
     timeTravel,
-    isLoading,
     toast,
   };
 
