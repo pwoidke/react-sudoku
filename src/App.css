@@ -30,6 +30,11 @@ header h1 {
   font-size: 1.75em;
 }
 
+header .icon-mono {
+  width: 70px;
+  enable-background: new 0 0 445.049 445.049;
+}
+
 header .theme-changer {
   width: 150px;
   margin: 0 auto 10px;

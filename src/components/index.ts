@@ -7,3 +7,4 @@ export * from './gameControls/gameControls';
 export * from './gameInfo/gameInfo';
 export * from './newGameButtons/newGameButtons';
 export * from './loadingSpinner/loadingSpinner';
+export * from './sudokuIcon/sudokuIcon';
