@@ -31,14 +31,13 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 ### `TODOs (and things I wanted to do but didn't have time):`
 
+- Unit tests
+- Fix iOS Safari issues
+- Highlight validation issues (row/column/block)
+- Move SCSS vars to constants
+- JSDocs
 - ~~Dark mode toggle~~ react-toggle-button isn't working w/ React 17.0.0
 - ~~font awesome~~ Just use emojis
-- Arrow/tab navigation (arrow through grid, enter to enter text, enter again to exit)
-- unit tests
 - ~~Move endpoints to env file~~ Probably not necessary
 - ~~RTK?~~ Fetch is fine since there's just 1 API call
-- JSDocs
 - ~~Feature flags?~~ Can't think of anything worth using them
-- Highlight validation issues (row/column/block)
-- Fix iOS Safari styles
-- Move SCSS vars to constants
