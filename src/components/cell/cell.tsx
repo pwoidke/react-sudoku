@@ -110,11 +110,12 @@ export function Cell({
     >
       <input
         className={classnames({ [styles.provided]: provided })}
-        disabled={provided}
+        // disabled={provided}
+        readOnly={provided}
         type='number'
         min={1}
         max={9}
-        defaultValue={value}
+        value={provided ? value : undefined}
         key={`${square}${value}`}
         ref={inputCell}
         inputMode='decimal'

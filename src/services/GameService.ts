@@ -1,8 +1,8 @@
-import { Game } from '../types/index';
+import { GameResponse } from '../types/index';
 
 import { environment } from '../environment';
 
-export async function getNewGame(difficulty: string): Promise<any> {
+export async function getNewGame(difficulty: string): Promise<GameResponse> {
   const response = await fetch(
     `${environment.apiOptions.baseUrl}${environment.apiOptions.endpoints.generate}?difficulty=${difficulty}`
   );
