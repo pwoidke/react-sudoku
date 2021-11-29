@@ -33,16 +33,6 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 - Unit tests
 - Highlight validation issues (row/column/block)
-- Display something when puzzle is solved
-
-```javascript
-{
-  checkBoardValid(boardHistory[historyIndex]) &&
-    Object.values(boardHistory[historyIndex]).join('').length === 81 &&
-    'You did it!';
-}
-```
-
 - Test w/ screen reader
 - Move SCSS vars to constants
 - JSDocs
