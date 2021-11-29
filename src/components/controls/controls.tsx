@@ -12,7 +12,7 @@ import styles from './controls.module.scss';
 export interface ControlsProps {}
 
 export function Controls() {
-  const { gameBoard, updateBoard, toast } = useContext(GameContext);
+  const { boardHistory, historyIndex, setGameBoard, toast } = useContext(GameContext);
 
   const solveButtonOverrideStyles: CSSProperties = {
     padding: '10px 0',
@@ -33,7 +33,7 @@ export function Controls() {
         overrideStyle={solveButtonOverrideStyles}
         onClickEvent={() => {
           try {
-            updateBoard(solveSudoku(gameBoard));
+            setGameBoard(solveSudoku(boardHistory[historyIndex]));
           } catch (error: any) {
             toast.error(error.message);
           }

@@ -118,6 +118,17 @@ footer {
   border: 1px solid white;
 }
 
+.dark .button.disabled {
+  background-color: #555;
+}
+
+.dark .button.disabled:hover {
+  color: #ccc;
+  border: 1px solid #ccc;
+  filter: none;
+  cursor: default;
+}
+
 .dark .row3,
 .dark .row6,
 .dark .col3,

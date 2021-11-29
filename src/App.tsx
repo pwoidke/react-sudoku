@@ -64,13 +64,11 @@ function App() {
         <ToastContainer position='top-center' autoClose={5000} closeOnClick pauseOnHover />
         <GameContextWrapper>
           <GameContext.Consumer>
-            {(context) =>
-              context.gameBoard && (
-                <>
-                  <Game />
-                </>
-              )
-            }
+            {() => (
+              <>
+                <Game />
+              </>
+            )}
           </GameContext.Consumer>
         </GameContextWrapper>
       </div>

@@ -3,43 +3,37 @@ import { toast } from 'react-toastify';
 
 import { Board } from './types/index';
 import { getNewGame } from './services/GameService';
-import { Difficulties, checkBoardValid, copyByValue, deepCompare, emptyBoard } from './utils/index';
+import { Difficulties, checkBoardValid, copyByValue, deepDiff, emptyBoard } from './utils/index';
 
 import 'react-toastify/dist/ReactToastify.css';
 
 var store = require('store');
 
 const defaultState = {
+  setGameBoard: () => {},
+  getNewGameData: () => {},
   selectedDifficulty: Difficulties.EASY,
-  setSelectedDifficulty: () => {},
-  gameBoard: emptyBoard,
-  updateBoard: () => {},
   boardHistory: [],
-  setBoardHistory: () => {},
-  isLoading: false,
-  boardIsValid: false,
-  timeTravel: () => {},
+  historyIndex: 0,
   resetBoard: () => {},
   clearBoard: () => {},
-  getNewGameData: () => {},
-  onCheckValid: () => {},
+  checkBoardValid: () => false,
+  timeTravel: () => {},
+  isLoading: false,
   toast: toast,
 };
 
 export interface IGameContext {
+  setGameBoard: (board: Board) => void;
+  getNewGameData: (difficulty: string) => void;
   selectedDifficulty: string;
-  setSelectedDifficulty: (selectedDifficulty: string) => void;
-  gameBoard: Board;
-  updateBoard: (board: Board) => void;
   boardHistory: Array<Board>;
-  setBoardHistory: (boardHistory: Array<Board>) => void;
-  isLoading: boolean;
-  boardIsValid: boolean;
-  timeTravel: (steps: number) => void;
+  historyIndex: number;
   resetBoard: () => void;
   clearBoard: () => void;
-  getNewGameData: (difficulty: string) => void;
-  onCheckValid: (gameBoard: Board) => void;
+  checkBoardValid: (board: Board) => boolean;
+  timeTravel: (steps: number) => void;
+  isLoading: boolean;
   toast: any;
 }
 
@@ -52,11 +46,9 @@ export interface GameContextProps {
 
 export function GameContextWrapper({ children }: GameContextProps) {
   const [isLoading, setIsLoading] = useState(false);
-  const [historyIndex, setHistoryIndex] = useState(-1);
+  const [historyIndex, setHistoryIndex] = useState(0);
   const [gameBoard, setGameBoard] = useState<Board>(emptyBoard);
-  const [initialBoard, setInitialBoard] = useState<Board>(emptyBoard);
-  const [boardIsValid, setBoardIsValid] = useState(false);
-  const [boardHistory, setBoardHistory] = useState<Array<Board>>([]);
+  const [boardHistory, setBoardHistory] = useState<Array<Board>>([emptyBoard]);
   const [selectedDifficulty, setSelectedDifficulty] = useState(Difficulties.EASY);
 
   useEffect(() => {
@@ -64,7 +56,7 @@ export function GameContextWrapper({ children }: GameContextProps) {
     const savedBoardHistory = store.get('boardHistory');
     if (savedDifficulty && savedBoardHistory && savedBoardHistory.length) {
       setSelectedDifficulty(savedDifficulty);
-      updateBoard(savedBoardHistory.pop());
+      setGameBoard(savedBoardHistory.pop());
     } else {
       getNewGameData(selectedDifficulty);
     }
@@ -76,22 +68,27 @@ export function GameContextWrapper({ children }: GameContextProps) {
   }, [selectedDifficulty]);
 
   useEffect(() => {
-    setBoardIsValid(checkBoardValid(gameBoard));
-  }, [gameBoard]);
-
-  useEffect(() => {
-    if (boardHistory.length) {
-      Object.values(boardHistory[boardHistory.length - 1]).join('').length &&
-        store.set('boardHistory', boardHistory);
-    }
+    store.set('boardHistory', boardHistory);
+    setHistoryIndex(boardHistory.length - 1);
   }, [boardHistory]);
 
+  useEffect(() => {
+    // IF the board is not empty
+    // And it's the first board
+    // Or the updated board is different than the last saved state
+    // Then add the updated board to the history
+    if (deepDiff(gameBoard, boardHistory[boardHistory.length - 1])) {
+      setBoardHistory([...copyByValue(boardHistory), copyByValue(gameBoard)]);
+    }
+    // eslint-disable-next-line
+  }, [gameBoard]);
+
   const resetBoard = () => {
-    updateBoard(initialBoard);
+    setGameBoard(copyByValue(boardHistory[1]));
   };
 
   const clearBoard = () => {
-    updateBoard(emptyBoard);
+    setGameBoard(copyByValue(boardHistory[0]));
   };
 
   const getNewGameData = (difficulty: string) => {
@@ -102,9 +99,8 @@ export function GameContextWrapper({ children }: GameContextProps) {
           if (gameData) {
             setSelectedDifficulty(gameData.difficulty);
             const newBoard = { ...emptyBoard, ...gameData.puzzle };
-            setInitialBoard(copyByValue(newBoard));
-            setBoardHistory([copyByValue(newBoard)]);
-            updateBoard(copyByValue(newBoard));
+            store.remove('boardHistory');
+            setGameBoard(copyByValue(newBoard));
           }
           setIsLoading(false);
         })
@@ -114,42 +110,26 @@ export function GameContextWrapper({ children }: GameContextProps) {
     }
   };
 
-  const updateBoard = (updatedBoard: Board) => {
-    if (deepCompare(updatedBoard, boardHistory[boardHistory.length - 1])) {
-      updatedBoard && setBoardHistory([...boardHistory, copyByValue(gameBoard)]);
-      updatedBoard && setGameBoard(copyByValue(updatedBoard));
+  const timeTravel = (steps: number) => {
+    const newIndex = historyIndex + steps;
+    if (newIndex > -1 && newIndex < boardHistory.length) {
+      setGameBoard(copyByValue(boardHistory[newIndex]));
+      setHistoryIndex(newIndex);
     }
   };
 
-  const onCheckValid = (gameBoard: Board) => (e: React.MouseEvent) => {
-    setBoardIsValid(checkBoardValid(gameBoard));
-  };
-
-  const timeTravel = (steps: number) => {
-    setGameBoard(
-      boardHistory.length
-        ? boardHistory[boardHistory.length + historyIndex + steps] ||
-            boardHistory[boardHistory.length - 1]
-        : initialBoard
-    );
-    setHistoryIndex(historyIndex + steps);
-  };
-
   const provider = {
+    setGameBoard,
+    getNewGameData,
     selectedDifficulty,
-    setSelectedDifficulty,
-    gameBoard,
-    updateBoard,
     boardHistory,
-    setBoardHistory,
-    isLoading,
-    boardIsValid,
-    timeTravel,
-    toast,
+    historyIndex,
     resetBoard,
     clearBoard,
-    onCheckValid,
-    getNewGameData,
+    checkBoardValid,
+    timeTravel,
+    isLoading,
+    toast,
   };
 
   return <GameContext.Provider value={provider}>{children}</GameContext.Provider>;

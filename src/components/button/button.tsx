@@ -24,7 +24,10 @@ export function Button({
     <div
       style={overrideStyle}
       role='button'
-      className={classnames(styles.button, className, 'button', { disabled: disabled })}
+      className={classnames(styles.button, className, 'button', {
+        [styles.disabled]: disabled,
+        disabled: disabled,
+      })}
       tabIndex={0}
       onClick={(e: React.MouseEvent) => {
         if (!disabled) {

@@ -8,21 +8,21 @@ import styles from './sudokuBoard.module.scss';
 export interface BoardProps {}
 
 export function SudokuBoard() {
-  const { gameBoard, updateBoard } = useContext(GameContext);
+  const { boardHistory, historyIndex, setGameBoard } = useContext(GameContext);
 
   const updateBoardValues = (position: string, val: string) => {
     console.log(`${position} ${val}`);
-    updateBoard({ ...gameBoard, [position]: val });
+    setGameBoard({ ...boardHistory[historyIndex], [position]: val });
   };
 
   return (
     <>
       <div className={styles.grid}>
-        {gameBoard &&
-          Object.keys(gameBoard).map((square: string, index: number) => {
+        {boardHistory[historyIndex] &&
+          Object.keys(boardHistory[historyIndex]).map((square: string, index: number) => {
             return (
               <Cell
-                value={gameBoard[square]}
+                value={boardHistory[historyIndex][square]}
                 index={index}
                 square={square}
                 key={square}

@@ -9,7 +9,8 @@ import styles from './gameControls.module.scss';
 export interface GameControlsProps {}
 
 export function GameControls() {
-  const { timeTravel, resetBoard, clearBoard } = useContext(GameContext);
+  const { timeTravel, resetBoard, clearBoard, boardHistory, historyIndex } =
+    useContext(GameContext);
 
   const styleOverrides: CSSProperties = {
     flex: '0 0 auto',
@@ -25,6 +26,7 @@ export function GameControls() {
           onClickEvent={() => {
             timeTravel(-1);
           }}
+          disabled={historyIndex < 1}
         >
           ⏪ Undo
         </Button>
@@ -34,6 +36,7 @@ export function GameControls() {
           onClickEvent={() => {
             timeTravel(1);
           }}
+          disabled={boardHistory.length < 2 || historyIndex === boardHistory.length - 1}
         >
           ⏩ Redo
         </Button>
