@@ -4,13 +4,13 @@ import classnames from 'classnames';
 import styles from './cell.module.scss';
 
 export interface CellProps {
-  value: string | null;
+  value: string;
   index: number;
   square: string;
   updateBoardValues: (square: string, value: string) => void;
 }
 
-export function Cell({ value, index, square, updateBoardValues }: CellProps) {
+export function Cell({ value = '', index, square, updateBoardValues }: CellProps) {
   const inputCell = useRef(null);
   const cellContainer = useRef(null);
 
@@ -105,10 +105,10 @@ export function Cell({ value, index, square, updateBoardValues }: CellProps) {
         type='number'
         min={1}
         max={9}
-        defaultValue={value || ''}
+        defaultValue={value}
+        key={`${square}${value}`}
         ref={inputCell}
         inputMode='decimal'
-        pattern='[1-9]{1}'
         onBlur={(e) => updateBoardValues(square, e.target.value)}
         onKeyUp={(e: React.KeyboardEvent) => {
           e.stopPropagation();
