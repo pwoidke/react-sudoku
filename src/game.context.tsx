@@ -93,7 +93,13 @@ export function GameContextWrapper({ children }: GameContextProps) {
         .then((gameData) => {
           if (gameData) {
             setSelectedDifficulty(gameData.difficulty);
-            const newBoard = { ...emptyBoard, ...gameData.puzzle };
+            const initialBoard = emptyBoard;
+            Object.keys(initialBoard).map((square: string) => {
+              if (gameData.puzzle[square]) {
+                initialBoard[square] = { value: gameData.puzzle[square], provided: true };
+              }
+            });
+            const newBoard = initialBoard;
             updateBoard(newBoard, [emptyBoard]);
           }
           setIsLoading(false);

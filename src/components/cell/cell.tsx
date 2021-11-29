@@ -7,10 +7,17 @@ export interface CellProps {
   value: string;
   index: number;
   square: string;
+  provided?: boolean;
   updateBoardValues: (square: string, value: string) => void;
 }
 
-export function Cell({ value = '', index, square, updateBoardValues }: CellProps) {
+export function Cell({
+  value = '',
+  index,
+  square,
+  provided = false,
+  updateBoardValues,
+}: CellProps) {
   const inputCell = useRef(null);
   const cellContainer = useRef(null);
 
@@ -102,6 +109,8 @@ export function Cell({ value = '', index, square, updateBoardValues }: CellProps
       }}
     >
       <input
+        className={classnames({ [styles.provided]: provided })}
+        disabled={provided}
         type='number'
         min={1}
         max={9}

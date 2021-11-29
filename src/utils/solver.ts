@@ -19,7 +19,7 @@ export function checkBoardValid(board: Board = emptyBoard): boolean {
   rows.forEach((row) => {
     set = [];
     cols.forEach((col) => {
-      set.push(board[row + col] || '');
+      set.push(board[row + col].value || '');
     });
 
     isValid = isValid && checkSet(set);
@@ -29,7 +29,7 @@ export function checkBoardValid(board: Board = emptyBoard): boolean {
   cols.forEach((col) => {
     set = [];
     rows.forEach((row) => {
-      set.push(board[row + col] || '');
+      set.push(board[row + col].value || '');
     });
 
     isValid = isValid && checkSet(set);
@@ -40,17 +40,17 @@ export function checkBoardValid(board: Board = emptyBoard): boolean {
   for (let row = 0; row < 9; row += 3) {
     for (let col = 0; col < 9; col += 3) {
       set = [
-        board[rows[row] + cols[col]],
-        board[rows[row + 1] + cols[col]],
-        board[rows[row + 2] + cols[col]],
+        board[rows[row] + cols[col]].value || '',
+        board[rows[row + 1] + cols[col]].value || '',
+        board[rows[row + 2] + cols[col]].value || '',
 
-        board[rows[row] + cols[col + 1]],
-        board[rows[row + 1] + cols[col + 1]],
-        board[rows[row + 2] + cols[col + 1]],
+        board[rows[row] + cols[col + 1]].value || '',
+        board[rows[row + 1] + cols[col + 1]].value || '',
+        board[rows[row + 2] + cols[col + 1]].value || '',
 
-        board[rows[row] + cols[col + 2]],
-        board[rows[row + 1] + cols[col + 2]],
-        board[rows[row + 2] + cols[col + 2]],
+        board[rows[row] + cols[col + 2]].value || '',
+        board[rows[row + 1] + cols[col + 2]].value || '',
+        board[rows[row + 2] + cols[col + 2]].value || '',
       ];
       isValid = isValid && checkSet(set);
     }
@@ -62,7 +62,7 @@ export function checkBoardValid(board: Board = emptyBoard): boolean {
 export function solveSudoku(board: Board): Board {
   const gameBoard: Board = copyByValue(board);
   var solverString = Object.values(gameBoard)
-    .map((value) => parseInt(value || '0'))
+    .map((cell) => parseInt(cell.value || '0'))
     .join('');
   let solved;
   solved = solve(solverString);

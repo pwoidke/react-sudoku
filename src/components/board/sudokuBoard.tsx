@@ -12,7 +12,7 @@ export function SudokuBoard() {
 
   const updateBoardValues = (position: string, val: string) => {
     console.log(`${position} ${val}`);
-    updateBoard({ ...boardHistory[historyIndex], [position]: val });
+    updateBoard({ ...boardHistory[historyIndex], [position]: { value: val } });
   };
 
   return (
@@ -22,7 +22,8 @@ export function SudokuBoard() {
           Object.keys(boardHistory[historyIndex]).map((square: string, index: number) => {
             return (
               <Cell
-                value={boardHistory[historyIndex][square]}
+                value={boardHistory[historyIndex][square].value}
+                provided={boardHistory[historyIndex][square].provided}
                 index={index}
                 square={square}
                 key={square}
