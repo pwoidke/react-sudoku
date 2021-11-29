@@ -33,8 +33,17 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 - Unit tests
 - Highlight validation issues (row/column/block)
-- Bold initial values and set disabled
+- Bold initial values and set disabled (https://github.com/pwoidke/react-sudoku/tree/feature/disable-provided-values)
 - Display something when puzzle is solved
+
+```javascript
+{
+  checkBoardValid(boardHistory[historyIndex]) &&
+    Object.values(boardHistory[historyIndex]).join('').length === 81 &&
+    'You did it!';
+}
+```
+
 - Test w/ screen reader
 - Move SCSS vars to constants
 - JSDocs
