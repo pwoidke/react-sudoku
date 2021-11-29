@@ -3,7 +3,6 @@ import { ToastContainer } from 'react-toastify';
 import { useMediaPredicate } from 'react-media-hook';
 import classnames from 'classnames';
 
-import { sudokuMono } from './assets/index';
 import { GameContext, GameContextWrapper } from './game.context';
 import { Game, SudokuIcon } from './components/index';
 
