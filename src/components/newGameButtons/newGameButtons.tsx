@@ -1,13 +1,12 @@
+import { CSSProperties, useContext } from 'react';
 import { Button } from '../button/button';
 
+import { GameContext } from '../../game.context';
 import { Difficulties, mapEnum, randomEnum } from '../../utils/index';
 
 import styles from './newGameButtons.module.scss';
-import { CSSProperties } from 'react';
 
-export interface NewGameButtonsProps {
-  getNewGameData: (difficulty: string) => void;
-}
+export interface NewGameButtonsProps {}
 
 interface StyleOverrides {
   all: CSSProperties;
@@ -17,7 +16,9 @@ interface StyleOverrides {
   random: CSSProperties;
 }
 
-export function NewGameButtons({ getNewGameData }: NewGameButtonsProps) {
+export function NewGameButtons() {
+  const { getNewGameData } = useContext(GameContext);
+
   const styleOverrides: StyleOverrides = {
     all: {
       display: 'flex',

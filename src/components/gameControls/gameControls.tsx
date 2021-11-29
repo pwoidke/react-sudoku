@@ -1,17 +1,16 @@
-import { CSSProperties } from 'react';
+import { CSSProperties, useContext } from 'react';
 import classnames from 'classnames';
 
+import { GameContext } from '../../game.context';
 import { Button } from '../button/button';
 
 import styles from './gameControls.module.scss';
 
-export interface GameControlsProps {
-  timeTravel: (step: number) => void;
-  resetBoard: () => void;
-  clearBoard: () => void;
-}
+export interface GameControlsProps {}
 
-export function GameControls({ timeTravel, resetBoard, clearBoard }: GameControlsProps) {
+export function GameControls() {
+  const { timeTravel, resetBoard, clearBoard } = useContext(GameContext);
+
   const styleOverrides: CSSProperties = {
     flex: '0 0 auto',
     width: 80,

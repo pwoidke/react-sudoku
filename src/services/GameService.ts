@@ -1,8 +1,10 @@
-import { Game } from '../types/Game';
+import { Game } from '../types/index';
+
+import { environment } from '../environment';
 
 export async function getNewGame(difficulty: string): Promise<Game> {
   const response = await fetch(
-    `https://vast-chamber-17969.herokuapp.com/generate?difficulty=${difficulty}`
+    `${environment.apiOptions.baseUrl}${environment.apiOptions.endpoints.generate}?difficulty=${difficulty}`
   );
   return await response.json();
 }

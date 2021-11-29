@@ -1,29 +1,29 @@
-import { Board } from '../../types/Board';
+import { useContext } from 'react';
+
+import { GameContext } from '../../game.context';
+import { Board } from '../../types/index';
 import { Cell } from '../cell/cell';
 
 import styles from './sudokuBoard.module.scss';
 
-export interface BoardProps {
-  boardValues: Board;
-  onUpdateBoard: (board: Board) => void;
-}
+export interface BoardProps {}
 
-export function SudokuBoard({ boardValues, onUpdateBoard }: BoardProps) {
+export function SudokuBoard() {
+  const { gameBoard, updateBoard } = useContext(GameContext);
+
   const updateBoardValues = (position: string, val: string) => {
     console.log(`${position} ${val}`);
-    boardValues[position] = val;
-
-    onUpdateBoard(boardValues);
+    updateBoard({ ...gameBoard, [position]: val });
   };
 
   return (
     <>
       <div className={styles.grid}>
-        {boardValues &&
-          Object.keys(boardValues).map((square: string, index: number) => {
+        {gameBoard &&
+          Object.keys(gameBoard).map((square: string, index: number) => {
             return (
               <Cell
-                value={boardValues[square]}
+                value={gameBoard[square]}
                 index={index}
                 square={square}
                 key={square}

@@ -1,4 +1,4 @@
-import { Board } from '../types/Board';
+import { Board } from '../types/index';
 
 // https://github.com/mattflow/sudoku-solver
 const solve = require('@mattflow/sudoku-solver');

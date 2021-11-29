@@ -1,22 +1,15 @@
+import { useContext } from 'react';
 import { Button } from '../button/button';
 
-import { Board } from '../../types/Board';
+import { GameContext } from '../../game.context';
 
 import styles from './gameInfo.module.scss';
 
-export interface GameInfoProps {
-  gameBoard: Board;
-  selectedDifficulty: string;
-  boardIsValid: boolean;
-  onCheckValid: (gameBoard: Board) => void;
-}
+export interface GameInfoProps {}
 
-export function GameInfo({
-  gameBoard,
-  selectedDifficulty,
-  boardIsValid,
-  onCheckValid,
-}: GameInfoProps) {
+export function GameInfo() {
+  const { onCheckValid, boardIsValid, gameBoard, selectedDifficulty } = useContext(GameContext);
+
   return (
     <div className={styles.info}>
       <div className={styles.item}>

@@ -1,100 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import { useContext } from 'react';
+import { ToastContainer } from 'react-toastify';
 
+import { environment } from './environment';
+
+import { GameContext, GameContextWrapper } from './game.context';
 import { Controls, LoadingSpinner, SudokuBoard } from './components/index';
-import { Board } from './types/Board';
-import { getNewGame } from './services/GameService';
-import { Difficulties, checkBoardValid, copyByValue, deepCompare, emptyBoard } from './utils/index';
-
-import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 
-var store = require('store');
-
 function App() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [historyIndex, setHistoryIndex] = useState(-1);
-  const [gameBoard, setGameBoard] = useState<Board>(emptyBoard);
-  const [initialBoard, setInitialBoard] = useState<Board>(emptyBoard);
-  const [boardIsValid, setBoardIsValid] = useState(false);
-  const [boardHistory, setBoardHistory] = useState<Array<Board>>([]);
-  const [selectedDifficulty, setSelectedDifficulty] = useState(Difficulties.EASY);
-
-  useEffect(() => {
-    const savedDifficulty = store.get('difficulty');
-    const savedBoardHistory = store.get('boardHistory');
-    if (savedDifficulty && savedBoardHistory && savedBoardHistory.length) {
-      setSelectedDifficulty(savedDifficulty);
-      updateBoard(savedBoardHistory.pop());
-    } else {
-      getNewGameData(selectedDifficulty);
-    }
-    // eslint-disable-next-line
-  }, []);
-
-  useEffect(() => {
-    store.set('difficulty', selectedDifficulty);
-  }, [selectedDifficulty]);
-
-  useEffect(() => {
-    setBoardIsValid(checkBoardValid(gameBoard));
-  }, [gameBoard]);
-
-  useEffect(() => {
-    if (boardHistory.length) {
-      Object.values(boardHistory[boardHistory.length - 1]).join('').length &&
-        store.set('boardHistory', boardHistory);
-    }
-  }, [boardHistory]);
-
-  const resetBoard = () => {
-    updateBoard(initialBoard);
-  };
-
-  const clearBoard = () => {
-    updateBoard(emptyBoard);
-  };
-
-  const getNewGameData = (difficulty: string) => {
-    if (!isLoading) {
-      setIsLoading(true);
-      getNewGame(difficulty)
-        .then((gameData) => {
-          if (gameData) {
-            setSelectedDifficulty(gameData.difficulty);
-            const newBoard = { ...emptyBoard, ...gameData.puzzle };
-            setInitialBoard(copyByValue(newBoard));
-            setBoardHistory([copyByValue(newBoard)]);
-            updateBoard(copyByValue(newBoard));
-          }
-          setIsLoading(false);
-        })
-        .catch((error) => {
-          toast.error(error);
-        });
-    }
-  };
-
-  const updateBoard = (updatedBoard: Board) => {
-    if (deepCompare(updatedBoard, boardHistory[boardHistory.length - 1])) {
-      updatedBoard && setBoardHistory([...boardHistory, copyByValue(gameBoard)]);
-      updatedBoard && setGameBoard(copyByValue(updatedBoard));
-    }
-  };
-
-  const onCheckValid = (gameBoard: Board) => (e: React.MouseEvent) => {
-    setBoardIsValid(checkBoardValid(gameBoard));
-  };
-
-  const timeTravel = (steps: number) => {
-    setGameBoard(
-      boardHistory.length
-        ? boardHistory[boardHistory.length + historyIndex + steps] ||
-            boardHistory[boardHistory.length - 1]
-        : initialBoard
-    );
-    setHistoryIndex(historyIndex + steps);
-  };
+  const { isLoading } = useContext(GameContext);
+  const { apiOptions } = environment;
 
   return (
     <div className='App'>
@@ -104,19 +19,18 @@ function App() {
       <div className='content'>
         <ToastContainer position='top-center' autoClose={5000} closeOnClick pauseOnHover />
         <LoadingSpinner isLoading={isLoading} />
-        <SudokuBoard boardValues={gameBoard} onUpdateBoard={updateBoard}></SudokuBoard>
-        <Controls
-          gameBoard={gameBoard}
-          boardIsValid={boardIsValid}
-          selectedDifficulty={selectedDifficulty}
-          timeTravel={timeTravel}
-          resetBoard={resetBoard}
-          clearBoard={clearBoard}
-          updateBoard={updateBoard}
-          getNewGameData={getNewGameData}
-          onCheckValid={onCheckValid}
-          toast={toast}
-        ></Controls>
+        {/* <SharedApiWrapper options={apiOptions}> */}
+        <GameContextWrapper options={apiOptions}>
+          <GameContext.Consumer>
+            {(context) => (
+              <>
+                <SudokuBoard></SudokuBoard>
+                <Controls></Controls>
+              </>
+            )}
+          </GameContext.Consumer>
+        </GameContextWrapper>
+        {/* </SharedApiWrapper> */}
       </div>
       <footer>
         <a href='https://github.com/pwoidke/react-sudoku' target='_blank' rel='noreferrer'>
