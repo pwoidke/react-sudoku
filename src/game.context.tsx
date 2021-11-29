@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
-import { ApiOptions, Board } from './types/index';
+import { Board } from './types/index';
 import { getNewGame } from './services/GameService';
 import { Difficulties, checkBoardValid, copyByValue, deepCompare, emptyBoard } from './utils/index';
 
@@ -47,7 +47,6 @@ export const GameContext = createContext<IGameContext>(defaultState);
 
 /* eslint-disable-next-line */
 export interface GameContextProps {
-  options: ApiOptions;
   children?: any;
 }
 

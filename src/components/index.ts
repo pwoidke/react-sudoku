@@ -1,3 +1,4 @@
+export * from './game/game';
 export * from './board/sudokuBoard';
 export * from './button/button';
 export * from './cell/cell';

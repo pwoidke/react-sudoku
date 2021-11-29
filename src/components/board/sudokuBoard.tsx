@@ -1,7 +1,6 @@
 import { useContext } from 'react';
 
 import { GameContext } from '../../game.context';
-import { Board } from '../../types/index';
 import { Cell } from '../cell/cell';
 
 import styles from './sudokuBoard.module.scss';
