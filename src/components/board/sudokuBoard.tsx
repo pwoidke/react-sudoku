@@ -17,7 +17,6 @@ export function SudokuBoard() {
 
   return (
     <>
-      <h1>{historyIndex}</h1>
       <div className={styles.grid}>
         {boardHistory[historyIndex] &&
           Object.keys(boardHistory[historyIndex]).map((square: string, index: number) => {
