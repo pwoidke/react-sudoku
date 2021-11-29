@@ -115,7 +115,7 @@ export function Cell({
         type='number'
         min={1}
         max={9}
-        value={provided ? value : undefined}
+        defaultValue={value}
         key={`${square}${value}`}
         ref={inputCell}
         inputMode='decimal'
