@@ -32,12 +32,9 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 ### `TODOs (and things I wanted to do but didn't have time):`
 
 - Unit tests
-- Fix iOS Safari issues
 - Highlight validation issues (row/column/block)
 - Move SCSS vars to constants
 - JSDocs
-- ~~Dark mode toggle~~ react-toggle-button isn't working w/ React 17.0.0
-- ~~font awesome~~ Just use emojis
-- ~~Move endpoints to env file~~ Probably not necessary
+- ~~font awesome~~ Using emojis for simplicity
 - ~~RTK?~~ Fetch is fine since there's just 1 API call
-- ~~Feature flags?~~ Can't think of anything worth using them
+- ~~Feature flags?~~ Can't think of anything worth the effort to add them

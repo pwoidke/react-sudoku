@@ -13,7 +13,7 @@ header {
   margin-bottom: 2rem;
 }
 
-header div {
+header .header-row {
   display: flex;
   flex: 0 1 auto;
   justify-content: space-between;
@@ -28,6 +28,20 @@ header h1 {
   text-align: left;
   font-family: monospace;
   font-size: 1.75em;
+}
+
+header .theme-changer {
+  width: 150px;
+  margin: 0 auto 10px;
+}
+
+header .pretty {
+  top: 10px;
+  margin-left: 5px;
+}
+
+header .pretty.p-switch input {
+  min-width: 4em;
 }
 
 .content {
@@ -59,20 +73,58 @@ footer {
   box-shadow: 0 0 13px #ff3bf4;
 }
 
-@media (prefers-color-scheme: dark) {
-  .App {
-    background-color: #333;
-    color: #ccc;
-    border-color: #ccc;
-  }
+.visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: auto;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  white-space: nowrap;
+}
 
-  header {
-    background-color: rgb(136, 136, 136);
-    color: black;
-  }
+.App.dark {
+  background-color: #333;
+  color: #ccc;
+  border-color: #ccc;
+}
 
-  input {
-    background-color: #333;
-    color: #ccc;
-  }
+.dark header {
+  background-color: rgb(136, 136, 136);
+  color: black;
+}
+
+.dark input {
+  color: #ccc;
+}
+
+.dark .cell {
+  border-color: #ddd;
+}
+
+.dark .info-item {
+  border: 1px dotted #ddd;
+}
+
+.dark .button {
+  color: #ccc;
+  border: 1px solid #ccc;
+}
+
+.dark .button:hover {
+  color: white;
+  border: 1px solid white;
+}
+
+.dark .row3,
+.dark .row6,
+.dark .col3,
+.dark .col6,
+.dark .col1,
+.dark .col9,
+.dark .row1,
+.dark .row9 {
+  border-color: #ddd;
 }

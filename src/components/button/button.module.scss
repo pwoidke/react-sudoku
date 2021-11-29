@@ -18,14 +18,4 @@
     border: 1px solid black;
     filter: drop-shadow(1px);
   }
-
-  @media (prefers-color-scheme: dark) {
-    color: #ccc;
-    border: 1px solid #ccc;
-
-    &:hover {
-      color: white;
-      border: 1px solid white;
-    }
-  }
 }

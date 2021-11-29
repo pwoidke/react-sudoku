@@ -1,4 +1,6 @@
 import { useContext } from 'react';
+import classnames from 'classnames';
+
 import { Button } from '../button/button';
 
 import { GameContext } from '../../game.context';
@@ -12,7 +14,7 @@ export function GameInfo() {
 
   return (
     <div className={styles.info}>
-      <div className={styles.item}>
+      <div className={classnames(styles.item, 'info-item')}>
         <Button
           onClickEvent={() => {
             onCheckValid(gameBoard);
@@ -22,7 +24,7 @@ export function GameInfo() {
         </Button>
         <h3>{boardIsValid ? 'Yep' : 'Nope'}</h3>
       </div>
-      <div className={styles.item}>
+      <div className={classnames(styles.item, 'info-item')}>
         <h3>🎓 Difficulty:</h3>
         <p>{selectedDifficulty}</p>
       </div>
