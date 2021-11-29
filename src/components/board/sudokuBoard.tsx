@@ -8,7 +8,7 @@ import styles from './sudokuBoard.module.scss';
 export interface BoardProps {}
 
 export function SudokuBoard() {
-  const { boardHistory, historyIndex, updateBoard } = useContext(GameContext);
+  const { boardHistory, historyIndex, updateBoard, providedValues } = useContext(GameContext);
 
   const updateBoardValues = (position: string, val: string) => {
     console.log(`${position} ${val}`);
@@ -27,6 +27,7 @@ export function SudokuBoard() {
                 square={square}
                 key={square}
                 updateBoardValues={updateBoardValues}
+                provided={providedValues.indexOf(square) > -1}
               ></Cell>
             );
           })}

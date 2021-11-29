@@ -21,6 +21,7 @@ const defaultState = {
   checkBoardValid: () => false,
   timeTravel: () => {},
   toast: toast,
+  providedValues: [],
 };
 
 export interface IGameContext {
@@ -35,6 +36,7 @@ export interface IGameContext {
   checkBoardValid: (board: Board) => boolean;
   timeTravel: (steps: number) => void;
   toast: any;
+  providedValues: Array<string>;
 }
 
 export const GameContext = createContext<IGameContext>(defaultState);
@@ -49,6 +51,7 @@ export function GameContextWrapper({ children }: GameContextProps) {
   const [selectedDifficulty, setSelectedDifficulty] = useState(Difficulties.EASY);
   const [boardHistory, setBoardHistory] = useState<Array<Board>>([emptyBoard]);
   const [historyIndex, setHistoryIndex] = useState(0);
+  const [providedValues, setProvidedValues] = useState<Array<string>>([]);
 
   useEffect(() => {
     const savedDifficulty = store.get('difficulty');
@@ -93,6 +96,11 @@ export function GameContextWrapper({ children }: GameContextProps) {
         .then((gameData) => {
           if (gameData) {
             setSelectedDifficulty(gameData.difficulty);
+            const providedValuesData: Array<string> = [];
+            Object.keys(gameData.puzzle).forEach((square) => {
+              providedValuesData.push(square);
+            });
+            setProvidedValues(providedValuesData);
             const newBoard = { ...emptyBoard, ...gameData.puzzle };
             updateBoard(newBoard, [emptyBoard]);
           }
@@ -123,6 +131,7 @@ export function GameContextWrapper({ children }: GameContextProps) {
     checkBoardValid,
     timeTravel,
     toast,
+    providedValues,
   };
 
   return <GameContext.Provider value={provider}>{children}</GameContext.Provider>;
