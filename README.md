@@ -33,6 +33,9 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 - Unit tests
 - Highlight validation issues (row/column/block)
+- Bold initial values and set disabled
+- Display something when puzzle is solved
+- Test w/ screen reader
 - Move SCSS vars to constants
 - JSDocs
 - ~~font awesome~~ Using emojis for simplicity
