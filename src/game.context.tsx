@@ -77,11 +77,31 @@ export function GameContextWrapper({ children }: GameContextProps) {
   }, [selectedDifficulty]);
 
   useEffect(() => {
+    if (
+      checkBoardValid(boardHistory[historyIndex]) &&
+      Object.values(boardHistory[historyIndex]).join('').length === 81
+    ) {
+      toast.info(
+        <iframe
+          title='Way to go!'
+          src='https://giphy.com/embed/lFHtqqh6orvAhbiGmy'
+          width='480'
+          height='480'
+          frameBorder='0'
+          className='giphy-embed'
+        ></iframe>
+      );
+    }
+    // eslint-disable-next-line
+  }, [historyIndex]);
+
+  useEffect(() => {
     store.set('boardHistory', boardHistory);
     setHistoryIndex(boardHistory.length - 1);
   }, [boardHistory]);
 
   const updateBoard = (board: Board, history: Array<Board> = boardHistory) => {
+    toast.dismiss();
     if (deepDiff(board, boardHistory[historyIndex])) {
       setBoardHistory([...history.slice(0, historyIndex + 1), board]);
     }
@@ -97,6 +117,7 @@ export function GameContextWrapper({ children }: GameContextProps) {
 
   const getNewGameData = (difficulty: string) => {
     if (!isLoading) {
+      toast.dismiss();
       setIsLoading(true);
       getNewGame(difficulty)
         .then((gameData) => {
