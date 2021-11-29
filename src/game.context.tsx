@@ -56,15 +56,21 @@ export function GameContextWrapper({ children }: GameContextProps) {
   useEffect(() => {
     const savedDifficulty = store.get('difficulty');
     const savedBoardHistory = store.get('boardHistory');
-    if (savedDifficulty && savedBoardHistory) {
+    const savedProvidedValues = store.get('providedValues');
+    if (savedDifficulty && savedBoardHistory && savedProvidedValues) {
       setSelectedDifficulty(savedDifficulty);
       setBoardHistory(savedBoardHistory);
       setHistoryIndex(savedBoardHistory.length - 1);
+      setProvidedValues(savedProvidedValues);
     } else {
       getNewGameData(selectedDifficulty);
     }
     // eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    store.set('providedValues', providedValues);
+  }, [providedValues]);
 
   useEffect(() => {
     store.set('difficulty', selectedDifficulty);
