@@ -11,8 +11,10 @@ export function SudokuBoard() {
   const { boardHistory, historyIndex, updateBoard, providedValues } = useContext(GameContext);
 
   const updateBoardValues = (position: string, val: string) => {
-    console.log(`${position} ${val}`);
-    updateBoard({ ...boardHistory[historyIndex], [position]: val });
+    if (val) {
+      console.log(`${position} ${val}`);
+      updateBoard({ ...boardHistory[historyIndex], [position]: val });
+    }
   };
 
   return (
