@@ -56,12 +56,20 @@ export function GameContextWrapper({ children }: GameContextProps) {
   useEffect(() => {
     const savedDifficulty = store.get('difficulty');
     const savedBoardHistory = store.get('boardHistory');
+    const savedHistoryIndex = store.get('historyIndex');
     const savedProvidedValues = store.get('providedValues');
     if (savedDifficulty && savedBoardHistory && savedProvidedValues) {
-      setSelectedDifficulty(savedDifficulty);
-      setBoardHistory(savedBoardHistory);
-      setHistoryIndex(savedBoardHistory.length - 1);
-      setProvidedValues(savedProvidedValues);
+      if (
+        checkBoardValid(savedBoardHistory[savedHistoryIndex]) &&
+        Object.values(savedBoardHistory[savedHistoryIndex]).join('').length === 81
+      ) {
+        getNewGameData(savedDifficulty);
+      } else {
+        setSelectedDifficulty(savedDifficulty);
+        setBoardHistory(savedBoardHistory);
+        setHistoryIndex(savedHistoryIndex);
+        setProvidedValues(savedProvidedValues);
+      }
     } else {
       getNewGameData(selectedDifficulty);
     }
@@ -89,9 +97,11 @@ export function GameContextWrapper({ children }: GameContextProps) {
           height='480'
           frameBorder='0'
           className='giphy-embed'
-        ></iframe>
+        ></iframe>,
+        { autoClose: 3000, closeOnClick: true, pauseOnHover: false }
       );
     }
+    store.set('historyIndex', historyIndex);
     // eslint-disable-next-line
   }, [historyIndex]);
 
