@@ -135,11 +135,7 @@ export function GameContextWrapper({ children }: GameContextProps) {
         .then((gameData) => {
           if (gameData) {
             setSelectedDifficulty(gameData.difficulty);
-            const providedValuesData: Array<string> = [];
-            Object.keys(gameData.puzzle).forEach((square) => {
-              providedValuesData.push(square);
-            });
-            setProvidedValues(providedValuesData);
+            setProvidedValues(Object.keys(gameData.puzzle));
             const newBoard = { ...emptyBoard, ...gameData.puzzle };
             updateBoard(newBoard, [emptyBoard]);
           }
