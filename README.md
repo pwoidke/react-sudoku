@@ -29,7 +29,26 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `TODOs (and things I wanted to do but didn't have time):`
+## `Highlights`
+
+- Keyboard navigation: Navigate to the board using `tab`, use ⬆️⬇️⬅️➡️ to navigate through grid, press `enter` to select the input and confirm value
+- Undo/redo: If you make a mistake, use the `undo` button to go back. Use the `redo` button to go forward.
+- Restore game: If you close the app, your game is saved locally and is restored when you come back.
+- Light/Dark mode: If you have a system theme preference set, the game will load using that theme. The theme can be changed using the toggle in the header.
+
+## `Packages & Dependencies`
+
+I used several packages & dependencies to build this app. Some of the notable ones are listed here.
+
+- [@mattflow/sudoku-solver](https://github.com/mattflow/sudoku-solver): Provides function to solve sudoku puzzle given a list of cell values
+- [classnames](https://github.com/JedWatson/classnames): Used to conditionally set class names
+- [pretty-checkbox](https://github.com/lokesh-coder/pretty-checkbox): I usually use ([`react-toggle-button`](https://gdowens.github.io/react-toggle-button/)) for toggle buttons, but I was having a dependency issue so I used `pretty-checkbox` instead (it's not as nice, but it works).
+- [react-media-hook](https://github.com/lessmess-dev/react-media-hook): Used to get the system light/dark mode selection
+- [react-spinners](https://www.davidhu.io/react-spinners/): Loading indicator
+- [react-toastify](https://fkhadra.github.io/react-toastify/): Used to display error messages and the "puzzle solved" image
+- (store.js)[https://github.com/marcuswestin/store.js/]: Set/get local storage items
+
+## `Things I wanted to do but didn't have time`
 
 - Unit tests
 - Highlight validation issues (row/column/block)
