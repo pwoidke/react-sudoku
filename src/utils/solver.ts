@@ -59,6 +59,10 @@ export function checkBoardValid(board: Board = emptyBoard): boolean {
   return isValid;
 }
 
+export function checkBoardSolved(board: Board): boolean {
+  return checkBoardValid(board) && Object.values(board).join('').length === 81;
+}
+
 export function solveSudoku(board: Board): Board {
   const gameBoard: Board = copyByValue(board);
   var solverString = Object.values(gameBoard)

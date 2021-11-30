@@ -3,7 +3,13 @@ import { toast } from 'react-toastify';
 
 import { Board } from './types/index';
 import { getNewGame } from './services/GameService';
-import { Difficulties, checkBoardValid, deepDiff, emptyBoard } from './utils/index';
+import {
+  Difficulties,
+  checkBoardSolved,
+  checkBoardValid,
+  deepDiff,
+  emptyBoard,
+} from './utils/index';
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -58,18 +64,17 @@ export function GameContextWrapper({ children }: GameContextProps) {
     const savedBoardHistory = store.get('boardHistory');
     const savedHistoryIndex = store.get('historyIndex');
     const savedProvidedValues = store.get('providedValues');
-    if (savedDifficulty && savedBoardHistory && savedProvidedValues) {
-      if (
-        checkBoardValid(savedBoardHistory[savedHistoryIndex]) &&
-        Object.values(savedBoardHistory[savedHistoryIndex]).join('').length === 81
-      ) {
-        getNewGameData(savedDifficulty);
-      } else {
-        setSelectedDifficulty(savedDifficulty);
-        setBoardHistory(savedBoardHistory);
-        setHistoryIndex(savedHistoryIndex);
-        setProvidedValues(savedProvidedValues);
-      }
+    if (
+      savedDifficulty &&
+      savedBoardHistory &&
+      savedHistoryIndex &&
+      savedProvidedValues &&
+      !checkBoardSolved(savedBoardHistory[savedHistoryIndex])
+    ) {
+      setSelectedDifficulty(savedDifficulty);
+      setBoardHistory(savedBoardHistory);
+      setHistoryIndex(savedHistoryIndex);
+      setProvidedValues(savedProvidedValues);
     } else {
       getNewGameData(selectedDifficulty);
     }
@@ -85,10 +90,7 @@ export function GameContextWrapper({ children }: GameContextProps) {
   }, [selectedDifficulty]);
 
   useEffect(() => {
-    if (
-      checkBoardValid(boardHistory[historyIndex]) &&
-      Object.values(boardHistory[historyIndex]).join('').length === 81
-    ) {
+    if (checkBoardSolved(boardHistory[historyIndex])) {
       toast.info(
         <iframe
           title='Way to go!'
