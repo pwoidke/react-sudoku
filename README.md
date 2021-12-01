@@ -35,6 +35,7 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 - Undo/redo: If you make a mistake, use the `undo` button to go back. Use the `redo` button to go forward.
 - Restore game: If you close the app, your game is saved locally and is restored when you come back.
 - Light/Dark mode: If you have a system theme preference set, the game will load using that theme. The theme can be changed using the toggle in the header.
+- There is a branch that uses Axios for the API calls, if you feel strongly about using Axios over `fetch`: [github.com/pwoidke/react-sudoku/tree/feature/axios](https://github.com/pwoidke/react-sudoku/tree/feature/axios)
 
 ## `Packages & Dependencies`
 
