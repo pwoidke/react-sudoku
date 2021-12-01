@@ -50,9 +50,17 @@
       "last 1 safari version"
     ]
   },
+  "jest": {
+    "snapshotSerializers": [
+      "enzyme-to-json"
+    ]
+  },
   "devDependencies": {
+    "@types/enzyme": "^3.10.10",
+    "@types/enzyme-adapter-react-16": "^1.0.6",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.6",
+    "enzyme-to-json": "^3.6.2",
     "eslint-config-prettier": "^8.3.0"
   }
 }
