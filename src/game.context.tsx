@@ -1,15 +1,9 @@
 import { createContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
-import { Board } from './types/index';
+import { Board } from './types';
 import { getNewGame } from './services/GameService';
-import {
-  Difficulties,
-  checkBoardSolved,
-  checkBoardValid,
-  deepDiff,
-  emptyBoard,
-} from './utils/index';
+import { Difficulties, checkBoardSolved, checkBoardValid, deepDiff, emptyBoard } from './utils';
 
 import 'react-toastify/dist/ReactToastify.css';
 

@@ -1,4 +1,4 @@
-import { Board } from '../types/index';
+import { Board } from '../types';
 
 export const Difficulties = Object.freeze({
   EASY: 'easy',

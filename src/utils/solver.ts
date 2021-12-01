@@ -1,5 +1,5 @@
 import { copyByValue, emptyBoard } from '.';
-import { Board } from '../types/index';
+import { Board } from '../types';
 
 // https://github.com/mattflow/sudoku-solver
 const solve = require('@mattflow/sudoku-solver');

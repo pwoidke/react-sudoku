@@ -4,7 +4,7 @@ import { useMediaPredicate } from 'react-media-hook';
 import classnames from 'classnames';
 
 import { GameContext, GameContextWrapper } from './game.context';
-import { Game, SudokuIcon } from './components/index';
+import { Game, SudokuIcon } from './components';
 
 import './assets/pretty-checkbox.css';
 import './App.css';

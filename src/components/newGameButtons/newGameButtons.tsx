@@ -2,7 +2,7 @@ import { CSSProperties, useContext } from 'react';
 import { Button } from '../button/button';
 
 import { GameContext } from '../../game.context';
-import { Difficulties, mapEnum, randomEnum } from '../../utils/index';
+import { Difficulties, mapEnum, randomEnum } from '../../utils';
 
 import styles from './newGameButtons.module.scss';
 
