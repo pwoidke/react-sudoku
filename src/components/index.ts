@@ -1,5 +1,5 @@
 export * from './game/game';
-export * from './board/sudokuBoard';
+export * from './sudokuBoard/sudokuBoard';
 export * from './button/button';
 export * from './cell/cell';
 export * from './controls/controls';

@@ -1,4 +1,4 @@
-import { Game } from '../types/index';
+import { Game } from '../types';
 
 import { environment } from '../environment';
 

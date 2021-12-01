@@ -6,7 +6,7 @@ import { NewGameButtons } from './newGameButtons';
 
 describe('New Game Buttons', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<NewGameButtons getNewGameData={() => {}} />);
+    const { baseElement } = render(<NewGameButtons />);
     expect(baseElement).toBeTruthy();
   });
 });

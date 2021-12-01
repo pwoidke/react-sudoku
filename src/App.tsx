@@ -4,7 +4,7 @@ import { useMediaPredicate } from 'react-media-hook';
 import classnames from 'classnames';
 
 import { GameContext, GameContextWrapper } from './game.context';
-import { Game, SudokuIcon } from './components/index';
+import { Game, SudokuIcon } from './components';
 
 import './assets/pretty-checkbox.css';
 import './App.css';
@@ -29,6 +29,7 @@ function App() {
           🌞
           <div className='pretty p-switch p-fill'>
             <input
+              aria-labelledby='theme-switcher-label'
               type='checkbox'
               checked={
                 (store.get('theme') && store.get('theme') === 'dark') || preferredTheme === 'dark'
@@ -40,7 +41,9 @@ function App() {
               }}
             />
             <div className='state'>
-              <label className='visually-hidden'>Toggle Light/Dark Mode</label>
+              <label id='theme-switcher-label' className='visually-hidden'>
+                Toggle Light/Dark Mode
+              </label>
             </div>
           </div>
           🌜

@@ -6,9 +6,7 @@ import { Controls } from './controls';
 
 describe('Controls', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(
-      <Controls timeTravel={() => {}} resetBoard={() => {}} clearBoard={() => {}} />
-    );
+    const { baseElement } = render(<Controls />);
     expect(baseElement).toBeTruthy();
   });
 });

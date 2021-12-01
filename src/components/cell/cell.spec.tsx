@@ -9,6 +9,7 @@ describe('Cell', () => {
     const { baseElement } = render(
       <Cell
         index={1}
+        provided={false}
         square='XX'
         value='1'
         updateBoardValues={() => {

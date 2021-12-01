@@ -1,5 +1,5 @@
 import { copyByValue, emptyBoard } from '.';
-import { Board } from '../types/index';
+import { Board } from '../types';
 
 // https://github.com/mattflow/sudoku-solver
 const solve = require('@mattflow/sudoku-solver');
@@ -40,17 +40,17 @@ export function checkBoardValid(board: Board = emptyBoard): boolean {
   for (let row = 0; row < 9; row += 3) {
     for (let col = 0; col < 9; col += 3) {
       set = [
-        board[rows[row] + cols[col]],
-        board[rows[row + 1] + cols[col]],
-        board[rows[row + 2] + cols[col]],
+        board[rows[row] + cols[col]] || '',
+        board[rows[row + 1] + cols[col]] || '',
+        board[rows[row + 2] + cols[col]] || '',
 
-        board[rows[row] + cols[col + 1]],
-        board[rows[row + 1] + cols[col + 1]],
-        board[rows[row + 2] + cols[col + 1]],
+        board[rows[row] + cols[col + 1]] || '',
+        board[rows[row + 1] + cols[col + 1]] || '',
+        board[rows[row + 2] + cols[col + 1]] || '',
 
-        board[rows[row] + cols[col + 2]],
-        board[rows[row + 1] + cols[col + 2]],
-        board[rows[row + 2] + cols[col + 2]],
+        board[rows[row] + cols[col + 2]] || '',
+        board[rows[row + 1] + cols[col + 2]] || '',
+        board[rows[row + 2] + cols[col + 2]] || '',
       ];
       isValid = isValid && checkSet(set);
     }

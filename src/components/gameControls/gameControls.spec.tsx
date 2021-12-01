@@ -6,9 +6,7 @@ import { GameControls } from './gameControls';
 
 describe('Game Controls', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(
-      <GameControls timeTravel={() => {}} resetBoard={() => {}} clearBoard={() => {}} />
-    );
+    const { baseElement } = render(<GameControls />);
     expect(baseElement).toBeTruthy();
   });
 });

@@ -1,4 +1,4 @@
-import { Board } from '../types/index';
+import { Board } from '../types';
 
 export const Difficulties = Object.freeze({
   EASY: 'easy',
@@ -98,7 +98,7 @@ export const emptyBoard: Board = {
   I9: '',
 };
 
-export const solved: Board = {
+export const solvedBoard: Board = {
   A1: '8',
   A2: '6',
   A3: '4',

@@ -51,7 +51,7 @@ I used several packages & dependencies to build this app. Some of the notable on
 
 ## `Things I wanted to do but didn't have time`
 
-- Unit tests
+- Add unit tests for `SudokuBoard`, `Cell`, `Controls`, `GameControls`, `GameInfo`, `NewGameButtons`, and `Button` components
 - Highlight validation issues (row/column/block)
 - Test w/ screen reader
 - Move SCSS vars to constants
