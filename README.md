@@ -48,7 +48,7 @@ I used several packages & dependencies to build this app. Some of the notable on
 - [react-media-hook](https://github.com/lessmess-dev/react-media-hook): Used to get the system light/dark mode selection
 - [react-spinners](https://www.davidhu.io/react-spinners/): Loading indicator
 - [react-toastify](https://fkhadra.github.io/react-toastify/): Used to display error messages and the "puzzle solved" image
-- [store.js](https://github.com/marcuswestin/store.js/)]: Set/get local storage items
+- [store.js](https://github.com/marcuswestin/store.js/): Set/get local storage items
 
 ## `Things I wanted to do but didn't have time`
 
