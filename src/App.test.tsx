@@ -22,6 +22,10 @@ describe('<App />', () => {
     label = screen.getByLabelText(/Toggle Light\/Dark Mode/i);
   });
 
+  afterEach(() => {
+    localStorage.clear();
+  });
+
   describe('when page is initialized', () => {
     it('renders', () => {
       const header = screen.getByText(/Spek-DoKu/);
