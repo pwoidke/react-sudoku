@@ -28,9 +28,7 @@ describe('SudokuBoard', () => {
   });
 });
 
-// Test the board is rendered with values
-
-describe('SudokuBoard with data', () => {
+describe('SudokuBoard', () => {
   it('should render successfully', () => {
     const { baseElement } = render(
       <GameContext.Provider value={defaultContext}>
