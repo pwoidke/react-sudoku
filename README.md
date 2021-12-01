@@ -43,11 +43,12 @@ I used several packages & dependencies to build this app. Some of the notable on
 
 - [@mattflow/sudoku-solver](https://github.com/mattflow/sudoku-solver): Provides function to solve sudoku puzzle given a list of cell values
 - [classnames](https://github.com/JedWatson/classnames): Used to conditionally set class names
+- [enzyme](https://enzymejs.github.io/enzyme/): Used for unit testing components
 - [pretty-checkbox](https://github.com/lokesh-coder/pretty-checkbox): I usually use ([`react-toggle-button`](https://gdowens.github.io/react-toggle-button/)) for toggle buttons, but I was having a dependency issue so I used `pretty-checkbox` instead (it's not as nice, but it works).
 - [react-media-hook](https://github.com/lessmess-dev/react-media-hook): Used to get the system light/dark mode selection
 - [react-spinners](https://www.davidhu.io/react-spinners/): Loading indicator
 - [react-toastify](https://fkhadra.github.io/react-toastify/): Used to display error messages and the "puzzle solved" image
-- (store.js)[https://github.com/marcuswestin/store.js/]: Set/get local storage items
+- [store.js](https://github.com/marcuswestin/store.js/)]: Set/get local storage items
 
 ## `Things I wanted to do but didn't have time`
 
