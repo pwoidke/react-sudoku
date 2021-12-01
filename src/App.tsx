@@ -2,11 +2,12 @@ import { useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 import { useMediaPredicate } from 'react-media-hook';
 import classnames from 'classnames';
+// @ts-ignore
+import ToggleButton from 'react-toggle-button';
 
 import { GameContext, GameContextWrapper } from './game.context';
 import { Game, SudokuIcon } from './components';
 
-import './assets/pretty-checkbox.css';
 import './App.css';
 
 var store = require('store');
@@ -26,27 +27,36 @@ function App() {
           <SudokuIcon color={preferredTheme === 'dark' ? 'black' : 'white'} className='icon-mono' />
         </div>
         <div className='theme-changer'>
-          🌞
-          <div className='pretty p-switch p-fill'>
-            <input
-              aria-labelledby='theme-switcher-label'
-              type='checkbox'
-              checked={
-                (store.get('theme') && store.get('theme') === 'dark') || preferredTheme === 'dark'
-              }
-              onChange={(e: any) => {
-                const selectedTheme = e.target.checked ? 'dark' : 'light';
-                setTheme(selectedTheme);
-                store.set('theme', selectedTheme);
-              }}
-            />
-            <div className='state'>
-              <label id='theme-switcher-label' className='visually-hidden'>
-                Toggle Light/Dark Mode
-              </label>
-            </div>
-          </div>
-          🌜
+          <span className='theme-label'>🌞</span>
+          <ToggleButton
+            inactiveLabel=''
+            activeLabel=''
+            thumbStyle={{ display: 'inline-flex' }}
+            colors={{
+              activeThumb: {
+                base: '#444',
+              },
+              inactiveThumb: {
+                base: '#ccc',
+              },
+              active: {
+                base: '#ccc',
+                hover: '#ddd',
+              },
+              inactive: {
+                base: '#444',
+                hover: '#555',
+              },
+            }}
+            passThroughInputProps={{ testId: 'theme-toggle-button' }}
+            value={preferredTheme === 'dark'}
+            onToggle={(value: any) => {
+              const selectedTheme = value ? 'light' : 'dark';
+              setTheme(selectedTheme);
+              store.set('theme', selectedTheme);
+            }}
+          />
+          <span className='theme-label'>🌜</span>
         </div>
       </header>
       <div className='content'>

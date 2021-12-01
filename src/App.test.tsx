@@ -19,7 +19,7 @@ describe('<App />', () => {
 
   beforeEach(() => {
     container = render(<App />).container;
-    label = screen.getByLabelText(/Toggle Light\/Dark Mode/i);
+    label = screen.getByTestId('theme-toggle-button');
   });
 
   afterEach(() => {
