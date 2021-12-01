@@ -29,6 +29,7 @@ function App() {
           🌞
           <div className='pretty p-switch p-fill'>
             <input
+              aria-labelledby='theme-switcher-label'
               type='checkbox'
               checked={
                 (store.get('theme') && store.get('theme') === 'dark') || preferredTheme === 'dark'
@@ -40,7 +41,9 @@ function App() {
               }}
             />
             <div className='state'>
-              <label className='visually-hidden'>Toggle Light/Dark Mode</label>
+              <label id='theme-switcher-label' className='visually-hidden'>
+                Toggle Light/Dark Mode
+              </label>
             </div>
           </div>
           🌜
