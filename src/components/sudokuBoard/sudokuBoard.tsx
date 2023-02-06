@@ -1,3 +1,4 @@
+import '../../utils/strings'
 import { useContext } from 'react';
 
 import { GameContext } from '../../game.context';
@@ -10,10 +11,10 @@ export interface BoardProps {}
 export function SudokuBoard() {
   const { boardHistory, historyIndex, updateBoard, providedValues } = useContext(GameContext);
 
-  const updateBoardValues = (position: string, val: string) => {
+  const updateBoardValues = (position: number, val: string) => {
     if (val) {
       console.log(`${position} ${val}`);
-      updateBoard({ ...boardHistory[historyIndex], [position]: val });
+      updateBoard(boardHistory[historyIndex].replaceAt(position, val));
     }
   };
 

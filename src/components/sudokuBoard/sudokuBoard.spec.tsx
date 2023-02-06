@@ -28,7 +28,7 @@ const defaultContext: IGameContext = {
 const gameContext: IGameContext = {
   isLoading: false,
   selectedDifficulty: Difficulties.EASY,
-  boardHistory: [{ ...solvedBoard, A1: '1', A2: '2', A3: '' }],
+  boardHistory: [solvedBoard],
   historyIndex: 0,
   updateBoard: () => {},
   getNewGameData: () => {},

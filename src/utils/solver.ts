@@ -1,70 +1,74 @@
+import './strings';
 import { copyByValue, emptyBoard } from '.';
-import { Board } from '../types';
 
 // https://github.com/mattflow/sudoku-solver
 const solve = require('@mattflow/sudoku-solver');
 
-export function checkBoardValid(board: Board = emptyBoard): boolean {
-  const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
-  const cols = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
+const hasValue = (val: string) => val !== '.';
+
+export function checkBoardValid(board: string = emptyBoard): boolean {
+  // if the board is empty, return true
+  if (!board.split('').filter(hasValue).length) {
+    return true;
+  }
+
+  const rows = board.chunk(9);
+  const cols: string[] = [];
+
+  for (let i = 0; i < rows.length; i++) {
+    cols.push(rows.map(row => row[i]).join(''));
+  }
+
   let isValid = true;
 
-  const checkSet = (set: Array<string>) => {
+  const checkSet = (set: string) => {
     // return set.sort().toString() === '1,2,3,4,5,6,7,8,9';
-    return new Set(set.filter((val) => val.length)).size === set.filter((val) => val.length).length;
+    const setArr = set.split('');
+    return new Set(setArr.filter(hasValue)).size === setArr.filter(hasValue).length;
   };
 
   // Check rows
-  let set: Array<string>;
   rows.forEach((row) => {
-    set = [];
-    cols.forEach((col) => {
-      set.push(board[row + col] || '');
-    });
-
-    isValid = isValid && checkSet(set);
+    isValid = isValid && checkSet(row);
   });
 
   // Check columns
   cols.forEach((col) => {
-    set = [];
-    rows.forEach((row) => {
-      set.push(board[row + col] || '');
-    });
-
-    isValid = isValid && checkSet(set);
+    isValid = isValid && checkSet(col);
   });
 
   // Check blocks
-  set = [];
-  for (let row = 0; row < 9; row += 3) {
-    for (let col = 0; col < 9; col += 3) {
-      set = [
-        board[rows[row] + cols[col]] || '',
-        board[rows[row + 1] + cols[col]] || '',
-        board[rows[row + 2] + cols[col]] || '',
+  let sets: string[] = [];
+  let lefts: string[] = [];
+  let middles: string[] = [];
+  let rights: string[] = [];
 
-        board[rows[row] + cols[col + 1]] || '',
-        board[rows[row + 1] + cols[col + 1]] || '',
-        board[rows[row + 2] + cols[col + 1]] || '',
+  rows.forEach((row) => {
+    const [left, middle, right] = row.chunk(3);
+    lefts.push(left);
+    middles.push(middle);
+    rights.push(right);
+  });
 
-        board[rows[row] + cols[col + 2]] || '',
-        board[rows[row + 1] + cols[col + 2]] || '',
-        board[rows[row + 2] + cols[col + 2]] || '',
-      ];
-      isValid = isValid && checkSet(set);
-    }
+  for (let i = 0; i < 9; i += 3) {
+    sets.push(`${lefts[i]}${lefts[i + 1]}${lefts[i + 2]}`);
+    sets.push(`${middles[i]}${middles[i + 1]}${middles[i + 2]}`);
+    sets.push(`${rights[i]}${rights[i + 1]}${rights[i + 2]}`);
   }
 
+  sets.forEach((set) => {
+    isValid = isValid && checkSet(set);
+  });
+  
   return isValid;
 }
 
-export function checkBoardSolved(board: Board): boolean {
-  return checkBoardValid(board) && Object.values(board).join('').length === 81;
+export function checkBoardSolved(board: string): boolean {
+  return checkBoardValid(board) && board.split('').filter(hasValue).join('').length === 81;
 }
 
-export function solveSudoku(board: Board): Board {
-  const gameBoard: Board = copyByValue(board);
+export function solveSudoku(board: string): string {
+  const gameBoard: string = copyByValue(board);
   var solverString = Object.values(gameBoard)
     .map((value) => parseInt(value || '0'))
     .join('');

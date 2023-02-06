@@ -1,63 +1,53 @@
+import '../strings';
 import { checkBoardSolved, checkBoardValid, solveSudoku } from '../solver';
-
 import { emptyBoard, solvedBoard } from '../constants';
-import { Board } from '../../types';
 
-const invalidRowBoard: Board = {
-  ...emptyBoard,
-  A1: '1',
-  A2: '1',
-};
+// 00 01 02 | 03 04 05 | 06 07 08
+// 09 10 11 | 12 13 14 | 15 16 17
+// 18 19 20 | 21 22 23 | 24 25 26
+// --------------------------
+// 27 28 29 | 30 31 32 | 33 34 35
+// 36 37 38 | 39 40 41 | 42 43 44
+// 45 46 47 | 48 49 50 | 51 52 53
+// --------------------------
+// 54 55 56 | 57 58 59 | 60 61 62
+// 63 64 65 | 66 67 68 | 69 70 71
+// 72 73 74 | 75 76 77 | 78 79 80
 
-const invalidColumnBoard: Board = {
-  ...emptyBoard,
-  A1: '1',
-  B1: '1',
-};
+const invalidRowBoard: string = emptyBoard.replaceAt(0, '1');
 
-const invalidBlockBoard: Board = {
-  ...emptyBoard,
-  A1: '1',
-  C3: '1',
-};
+const invalidColumnBoard: string = emptyBoard.replaceAt(0, '1').replaceAt(9, '1');
 
-const validIncompleteBoard: Board = {
-  ...emptyBoard,
-  A1: '1',
-};
+const invalidBlockBoard: string =  emptyBoard.replaceAt(0, '1').replaceAt(20, '1');
 
-const invalidCompleteBoard: Board = {
-  ...solvedBoard,
-  A1: '1',
-  A2: '1',
-};
+const validIncompleteBoard: string = emptyBoard.replaceAt(0, '1');
 
-const validUnsolvedBoard: Board = {
-  ...solvedBoard,
-  I5: '',
-  E3: '',
-  G6: '',
-  A3: '',
-  G2: '',
-  C8: '',
-  H1: '',
-  E1: '',
-  A2: '',
-  F9: '',
-  G7: '',
-  D7: '',
-  H5: '',
-  F8: '',
-  C4: '',
-  I2: '',
-  C2: '',
-  D5: '',
-  A7: '',
-  A1: '',
-  A9: '',
-  H4: '',
-  B4: '',
-};
+const invalidCompleteBoard: string = solvedBoard.replaceAt(0, '1').replaceAt(1, '1');
+
+const validUnsolvedBoard: string = solvedBoard
+  .replaceAt(0, '')
+  .replaceAt(1, '')
+  .replaceAt(2, '')
+  .replaceAt(6, '')
+  .replaceAt(8, '')
+  .replaceAt(28, '')
+  .replaceAt(11, '')
+  .replaceAt(29, '')
+  .replaceAt(65, '')
+  .replaceAt(39, '')
+  .replaceAt(57, '')
+  .replaceAt(4, '')
+  .replaceAt(22, '')
+  .replaceAt(68, '')
+  .replaceAt(77, '')
+  .replaceAt(15, '')
+  .replaceAt(51, '')
+  .replaceAt(60, '')
+  .replaceAt(7, '')
+  .replaceAt(34, '')
+  .replaceAt(43, '')
+  .replaceAt(17, '')
+  .replaceAt(44, '');
 
 describe('checkBoardValid', () => {
   it('should check if given board is valid', () => {

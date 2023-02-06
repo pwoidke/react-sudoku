@@ -1,7 +1,6 @@
 import { createContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
-import { Board } from './types';
 import { Difficulty } from './types';
 import { getNewGame } from './services/GameService';
 import { Difficulties, checkBoardSolved, checkBoardValid, deepDiff, emptyBoard } from './utils';
@@ -22,27 +21,26 @@ const defaultState = {
   checkBoardValid: () => false,
   timeTravel: () => {},
   toast: toast,
-  providedValues: [],
+  providedValues: emptyBoard,
 };
 
 export interface IGameContext {
   isLoading: boolean;
   selectedDifficulty: string;
-  boardHistory: Array<Board>;
+  boardHistory: string[];
   historyIndex: number;
-  updateBoard: (board: Board) => void;
+  updateBoard: (board: string) => void;
   getNewGameData: (difficulty: Difficulty) => void;
   resetBoard: () => void;
   clearBoard: () => void;
-  checkBoardValid: (board: Board) => boolean;
+  checkBoardValid: (board: string) => boolean;
   timeTravel: (steps: number) => void;
   toast: any;
-  providedValues: Array<string>;
+  providedValues: string;
 }
 
 export const GameContext = createContext<IGameContext>(defaultState);
 
-/* eslint-disable-next-line */
 export interface GameContextProps {
   children?: any;
 }
@@ -50,9 +48,9 @@ export interface GameContextProps {
 export function GameContextWrapper({ children }: GameContextProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedDifficulty, setSelectedDifficulty] = useState(Difficulties.EASY);
-  const [boardHistory, setBoardHistory] = useState<Array<Board>>([emptyBoard]);
+  const [boardHistory, setBoardHistory] = useState<string[]>([emptyBoard]);
   const [historyIndex, setHistoryIndex] = useState(0);
-  const [providedValues, setProvidedValues] = useState<Array<string>>([]);
+  const [providedValues, setProvidedValues] = useState<string>(emptyBoard);
 
   useEffect(() => {
     const savedDifficulty = store.get('difficulty');
@@ -107,7 +105,7 @@ export function GameContextWrapper({ children }: GameContextProps) {
     setHistoryIndex(boardHistory.length - 1);
   }, [boardHistory]);
 
-  const updateBoard = (board: Board, history: Array<Board> = boardHistory) => {
+  const updateBoard = (board: string, history: string[] = boardHistory) => {
     toast.dismiss();
     if (deepDiff(board, boardHistory[historyIndex])) {
       setBoardHistory([...history.slice(0, historyIndex + 1), board]);
@@ -130,8 +128,8 @@ export function GameContextWrapper({ children }: GameContextProps) {
         .then((gameData) => {
           if (gameData) {
             setSelectedDifficulty(gameData.difficulty);
-            setProvidedValues(Object.keys(gameData.puzzle));
-            const newBoard = { ...emptyBoard, ...gameData.puzzle };
+            setProvidedValues(gameData.puzzle);
+            const newBoard = gameData.puzzle;
             updateBoard(newBoard, [emptyBoard]);
           }
           setIsLoading(false);
