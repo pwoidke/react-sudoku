@@ -42,6 +42,7 @@ header .icon-mono {
 header .theme-changer {
   width: 150px;
   margin: 0 auto 10px;
+  white-space: nowrap;
 }
 
 header .pretty {
