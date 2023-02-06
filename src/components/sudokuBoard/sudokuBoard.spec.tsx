@@ -6,7 +6,7 @@ import Adapter from 'enzyme-adapter-react-16';
 import { GameContext, IGameContext } from '../../game.context';
 import { SudokuBoard } from './sudokuBoard';
 import { Cell } from '../cell/cell';
-import { Difficulties, solvedBoard } from '../../utils';
+import { Difficulties, emptyBoard, solvedBoard } from '../../utils';
 
 configure({ adapter: new Adapter() });
 
@@ -22,7 +22,7 @@ const defaultContext: IGameContext = {
   checkBoardValid: () => false,
   timeTravel: () => {},
   toast: toast,
-  providedValues: [],
+  providedValues: emptyBoard,
 };
 
 const gameContext: IGameContext = {
@@ -37,7 +37,7 @@ const gameContext: IGameContext = {
   checkBoardValid: () => false,
   timeTravel: () => {},
   toast: toast,
-  providedValues: ['A1'],
+  providedValues: emptyBoard.replaceAt(0, '1'),
 };
 
 configure({ adapter: new Adapter() });

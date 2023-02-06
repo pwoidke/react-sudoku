@@ -4,17 +4,15 @@ import classnames from 'classnames';
 import styles from './cell.module.scss';
 
 export interface CellProps {
-  value: string;
   index: number;
-  square: string;
+  value: string;
   updateBoardValues: (index: number, value: string) => void;
   provided: boolean;
 }
 
 export function Cell({
-  value = '',
   index,
-  square,
+  value = '',
   updateBoardValues,
   provided = false,
 }: CellProps) {
@@ -78,7 +76,7 @@ export function Cell({
         max={9}
         defaultValue={value}
         readOnly={provided}
-        key={`${square}${value}`}
+        key={`${index}${value}`}
         ref={inputCell}
         inputMode='decimal'
         onBlur={(e) => updateBoardValues(index, e.target.value)}

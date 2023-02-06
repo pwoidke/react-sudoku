@@ -9,21 +9,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 var store = require('store');
 
-const defaultState = {
-  isLoading: false,
-  selectedDifficulty: Difficulties.EASY,
-  boardHistory: [],
-  historyIndex: 0,
-  updateBoard: () => {},
-  getNewGameData: () => {},
-  resetBoard: () => {},
-  clearBoard: () => {},
-  checkBoardValid: () => false,
-  timeTravel: () => {},
-  toast: toast,
-  providedValues: emptyBoard,
-};
-
 export interface IGameContext {
   isLoading: boolean;
   selectedDifficulty: string;
@@ -38,6 +23,21 @@ export interface IGameContext {
   toast: any;
   providedValues: string;
 }
+
+const defaultState = {
+  isLoading: false,
+  selectedDifficulty: Difficulties.EASY,
+  boardHistory: [],
+  historyIndex: 0,
+  updateBoard: () => {},
+  getNewGameData: () => {},
+  resetBoard: () => {},
+  clearBoard: () => {},
+  checkBoardValid: () => false,
+  timeTravel: () => {},
+  toast: toast,
+  providedValues: emptyBoard,
+};
 
 export const GameContext = createContext<IGameContext>(defaultState);
 
@@ -129,8 +129,7 @@ export function GameContextWrapper({ children }: GameContextProps) {
           if (gameData) {
             setSelectedDifficulty(gameData.difficulty);
             setProvidedValues(gameData.puzzle);
-            const newBoard = gameData.puzzle;
-            updateBoard(newBoard, [emptyBoard]);
+            updateBoard(gameData.puzzle, [emptyBoard]);
           }
           setIsLoading(false);
         })
