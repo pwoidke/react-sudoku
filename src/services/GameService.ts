@@ -5,7 +5,7 @@ import { environment } from '../environment';
 const options = {
 	method: 'GET',
 	headers: {
-		'X-RapidAPI-Key': '3ea5b334eamshb48e51ac85d7f06p13eaf4jsnf9610d474885',
+		'X-RapidAPI-Key': '',
 		'X-RapidAPI-Host': 'sudoku-generator1.p.rapidapi.com'
 	}
 };

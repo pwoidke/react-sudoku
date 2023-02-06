@@ -26,6 +26,7 @@ export function SudokuBoard() {
               <Cell
                 index={index}
                 value={value}
+                key={index}
                 updateBoardValues={updateBoardValues}
                 provided={providedValues[index] !== '.'}
               ></Cell>
