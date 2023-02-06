@@ -34,7 +34,7 @@ function App() {
               checked={
                 (store.get('theme') && store.get('theme') === 'dark') || preferredTheme === 'dark'
               }
-              onChange={(e: any) => {
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 const selectedTheme = e.target.checked ? 'dark' : 'light';
                 setTheme(selectedTheme);
                 store.set('theme', selectedTheme);

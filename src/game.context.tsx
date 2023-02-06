@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import { Board } from './types';
+import { Difficulty } from './types';
 import { getNewGame } from './services/GameService';
 import { Difficulties, checkBoardSolved, checkBoardValid, deepDiff, emptyBoard } from './utils';
 
@@ -30,7 +31,7 @@ export interface IGameContext {
   boardHistory: Array<Board>;
   historyIndex: number;
   updateBoard: (board: Board) => void;
-  getNewGameData: (difficulty: string) => void;
+  getNewGameData: (difficulty: Difficulty) => void;
   resetBoard: () => void;
   clearBoard: () => void;
   checkBoardValid: (board: Board) => boolean;
@@ -121,7 +122,7 @@ export function GameContextWrapper({ children }: GameContextProps) {
     setHistoryIndex(0);
   };
 
-  const getNewGameData = (difficulty: string) => {
+  const getNewGameData = (difficulty: Difficulty) => {
     if (!isLoading) {
       toast.dismiss();
       setIsLoading(true);

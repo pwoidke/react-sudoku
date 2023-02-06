@@ -5,6 +5,7 @@ import { GameContext } from '../../game.context';
 import { Difficulties, mapEnum, randomEnum } from '../../utils';
 
 import styles from './newGameButtons.module.scss';
+import { Difficulty } from '../../types';
 
 export interface NewGameButtonsProps {}
 
@@ -42,12 +43,11 @@ export function NewGameButtons() {
   return (
     <div className={styles.buttons}>
       <h3>Generate:</h3>
-      {mapEnum(Difficulties, (difficulty: string) => {
+      {mapEnum(Difficulties, (difficulty: Difficulty) => {
         return (
           <Button
             key={difficulty}
             text={difficulty}
-            // @ts-ignore
             overrideStyle={{ ...styleOverrides.all, ...styleOverrides[difficulty] }}
             className={difficulty}
             onClickEvent={() => {
@@ -60,7 +60,7 @@ export function NewGameButtons() {
         className='random'
         overrideStyle={{ ...styleOverrides.all, ...styleOverrides.random }}
         onClickEvent={() => {
-          getNewGameData(randomEnum(Difficulties).toLowerCase());
+          getNewGameData(randomEnum(Difficulties));
         }}
       >
         🎲 Random

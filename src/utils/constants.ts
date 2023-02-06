@@ -1,9 +1,10 @@
 import { Board } from '../types';
+import { Difficulty } from '../types';
 
 export const Difficulties = Object.freeze({
-  EASY: 'easy',
-  MEDIUM: 'medium',
-  HARD: 'hard',
+  EASY: 'easy' as Difficulty,
+  MEDIUM: 'medium' as Difficulty,
+  HARD: 'hard' as Difficulty,
 });
 
 export const emptyBoard: Board = {

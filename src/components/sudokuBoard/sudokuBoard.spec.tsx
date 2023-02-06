@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 import { toast } from 'react-toastify';
-import { configure, mount } from 'enzyme';
+import { configure, mount, ReactWrapper } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 import { GameContext, IGameContext } from '../../game.context';
@@ -66,7 +66,7 @@ describe('SudokuBoard default', () => {
 });
 
 describe('SudokuBoard with data', () => {
-  let wrapper: any;
+  let wrapper: ReactWrapper;
 
   beforeEach(() => {
     wrapper = mount(
@@ -83,7 +83,6 @@ describe('SudokuBoard with data', () => {
   it('should render provided values', () => {
     expect(wrapper.find('#cell-0 input').instance()).toHaveValue(1);
     expect(wrapper.find('#cell-0 input').instance()).toHaveAttribute('readonly');
-    expect(wrapper.find('#cell-0 input').instance().hasAttribute('readonly', 'true')).toBeTruthy();
   });
 
   it('should render entered values', () => {

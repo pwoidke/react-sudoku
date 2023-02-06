@@ -1,6 +1,7 @@
 import { Board } from './Board';
+export type Difficulty = 'easy' | 'medium' | 'hard';
 
 export interface Game {
-  difficulty: string;
   puzzle: Board;
+  difficulty: Difficulty;
 }
