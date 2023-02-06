@@ -69,11 +69,5 @@ export function checkBoardSolved(board: string): boolean {
 
 export function solveSudoku(board: string): string {
   const gameBoard: string = copyByValue(board);
-  var solverString = gameBoard.split('')
-    .map((value) => parseInt(value) || 0)
-    .join('');
-  let solved;
-  solved = solve(solverString);
-  const solvedValues = solved.split('');
-  return solvedValues.map((value: number) => value === 0 ? '.' : value);
+  return solve(gameBoard, {emptyValue: '.'});
 }
